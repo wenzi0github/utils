@@ -1,0 +1,17 @@
+{
+    "defaultSeverity": "warning",
+    "linterOptions": {
+        "exclude": ["node_modules/**"]
+    },
+    "rules": {
+        "align": [false, "parameters", "statements"],
+        "max-line-length": false,
+        "no-var-keyword": true,
+        "trailing-comma": false,
+        "quotemark": [true, "single"],
+        "interface-name": false,
+        "ordered-imports": false,
+        "object-literal-sort-keys": false,
+        "no-consecutive-blank-lines": false
+    }
+}
