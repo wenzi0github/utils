@@ -1,10 +1,13 @@
 const path = require("path");
+const webpack = require('webpack');
+
+const packageConfig = require( './package' );
 
 // https://webpack.docschina.org/configuration
 module.exports = {
     mode: "production",
     entry: {
-        main: "./src/index.ts",
+        index: "./src/index.ts",
     },
     output: {
         path: path.resolve(__dirname, "dist"),
@@ -26,4 +29,5 @@ module.exports = {
             },
         ],
     },
+    plugins: [new webpack.BannerPlugin(`User v${packageConfig.version}\nlast update: ${new Date().toLocaleString()}\nauthor: skeetershi`)],
 };
