@@ -1,33 +1,45 @@
 const path = require("path");
-const webpack = require('webpack');
+const webpack = require("webpack");
+const fs = require("fs");
 
-const packageConfig = require( './package' );
+const packageConfig = require("./package");
+
+const getFileEntry = () => {
+    const list = fs.readdirSync(path.resolve(__dirname, "src"));
+    let result = {};
+    list.forEach((item) => {
+        const { ext, name } = path.parse(item);
+
+        if (path.extname(item) === ".ts") {
+            result[name] = path.resolve(__dirname, 'src', item);
+        }
+    });
+    return result;
+};
 
 // https://webpack.docschina.org/configuration
 module.exports = {
     mode: "production",
-    entry: {
-        index: "./src/index.ts",
-    },
+    entry: getFileEntry(),
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].js",
         libraryExport: "default",
-        library: "User",
-        libraryTarget: "umd",
+        library: "GhUtils",
+        libraryTarget: "umd"
     },
     resolve: {
-        extensions: [".tsx", ".ts", ".js"],
+        extensions: [".tsx", ".ts", ".js"]
     },
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
                 use: {
-                    loader: "ts-loader",
-                },
-            },
-        ],
+                    loader: "ts-loader"
+                }
+            }
+        ]
     },
-    plugins: [new webpack.BannerPlugin(`User v${packageConfig.version}\nlast update: ${new Date().toLocaleString()}\nauthor: skeetershi`)],
+    plugins: [new webpack.BannerPlugin(`GhUtils v${packageConfig.version}\nlast update: ${new Date().toLocaleString()}\nauthor: skeetershi`)]
 };

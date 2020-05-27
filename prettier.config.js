@@ -1,6 +1,7 @@
 module.exports = {
     // tab缩进大小,默认为2
     tabWidth: 4,
+    printWidth: 160,
     // 使用tab缩进，默认false
     // useTabs: true,
     // 使用分号, 默认true
@@ -10,7 +11,7 @@ module.exports = {
     // 行尾逗号,默认none,可选 none|es5|all
     // es5 包括es5中的数组、对象
     // all 包括函数对象等所有可选
-    TrailingCooma: "none",
+    trailingComma: "none",
     // 对象中的空格 默认true
     // true: { foo: bar }
     // false: {foo: bar}
@@ -23,5 +24,5 @@ module.exports = {
     // true: <div
     //          className=""
     //          style={{}} >
-    arrowParens: "always",
+    arrowParens: "always"
 };
