@@ -15,13 +15,13 @@ export const setCookie = (name: string, value: string | number, day: number = 30
  * @param {string} name 要获取的cookie名称
  * @param {number|boolean} type 是否直接获取对应的值，若存入真值，则直接返回，否则进行解码
  */
-export const getCookie = (name: string, type: number | boolean = 0): string => {
+export const getCookie = (name: string, type: number | boolean = 0): string | null => {
     const reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
     const arr = document.cookie.match(reg);
     if (arr) {
         return type ? arr[2] : unescape(arr[2]);
     }
-    return "";
+    return null;
 };
 
 /**
