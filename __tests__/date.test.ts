@@ -1,4 +1,5 @@
-import { isSameDay, formatTime } from "../src/date";
+// import { isSameDay, formatTime } from "../src/date";
+import { isSameDay, formatTime } from "../dist/date";
 
 describe("date.isSameDay", () => {
     const now = 1590564078018;

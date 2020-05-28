@@ -1,6 +1,8 @@
 const userAgent = window.navigator.userAgent.toLocaleLowerCase();
 
-// 获取当前系统和版本号
+/**
+ * 获取当前系统和版本号
+ */
 export const getSystemInfo = () => {
     const os = {
         name: "",
@@ -32,7 +34,9 @@ export const getSystemInfo = () => {
     return os;
 };
 
-// 获取当前APP和版本号
+/**
+ * 获取当前APP和版本号
+ */
 export const getBrowserInfo = () => {
     const browser = {
         name: "",

@@ -9,9 +9,8 @@ const getFileEntry = () => {
     let result = {};
     list.forEach((item) => {
         const { ext, name } = path.parse(item);
-
-        if (path.extname(item) === ".ts") {
-            result[name] = path.resolve(__dirname, 'src', item);
+        if (ext === ".ts") {
+            result[name] = path.resolve(__dirname, "src", item);
         }
     });
     return result;
@@ -24,8 +23,8 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].js",
-        libraryExport: "default",
-        library: "GhUtils",
+        // libraryExport: "default",
+        library: "[name]",
         libraryTarget: "umd"
     },
     resolve: {
@@ -41,5 +40,5 @@ module.exports = {
             }
         ]
     },
-    plugins: [new webpack.BannerPlugin(`GhUtils v${packageConfig.version}\nlast update: ${new Date().toLocaleString()}\nauthor: skeetershi`)]
+    plugins: [new webpack.BannerPlugin(`gh-utils v${packageConfig.version}\nlast update: ${new Date().toLocaleString()}\nauthor: skeetershi`)]
 };

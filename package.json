@@ -2,11 +2,10 @@
   "name": "webpack-ts",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist",
   "scripts": {
     "test": "jest",
-    "build": "webpack -p --config webpack.config.js"
+    "build": "npm run test && webpack -p --config webpack.config.js"
   },
   "author": "",
   "license": "ISC",
