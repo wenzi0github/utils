@@ -63,3 +63,50 @@ export const truncate = (str: string, size: number, tail?: string): string => {
 
     return nstr;
 };
+
+/**
+ * 加载js文件
+ * @param {string} url 要加载的js文件链接
+ * @returns {Promise} 返回一个Promise对象，若加载失败或者超时，则reject
+ */
+export const loadScript = (url: string): Promise<null> => {
+    const head = document.getElementsByTagName("head")[0];
+    const script = document.createElement("script");
+    const timeout: number = 6000; // 过期时间
+    let timer: any = null;
+
+    script.setAttribute("type", "text/javascript");
+    script.setAttribute("charset", "UTF-8");
+    script.setAttribute("src", url);
+
+    const cleanup = () => {
+        if (script.parentNode) {
+            script.parentNode.removeChild(script);
+        }
+        if (timer) {
+            clearTimeout(timer);
+        }
+    };
+    head.appendChild(script);
+
+    return new Promise((resolve, reject) => {
+        // 执行回调
+        const callbackFn = () => {
+            if (timer) {
+                clearTimeout(timer);
+            }
+            resolve();
+        };
+
+        script.onload = () => {
+            callbackFn();
+        };
+
+        if (timeout) {
+            timer = setTimeout(() => {
+                cleanup();
+                reject(new Error(`get ${url} timeout`));
+            }, timeout);
+        }
+    });
+};
