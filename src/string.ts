@@ -36,7 +36,7 @@ export const strReplace = (str: string, params: any = {}): string => {
  * @param {string} tail 结尾延伸的字符串，默认是3个点
  * @returns {string} 截取后的字符串
  */
-export const truncate = (str: string, size: number, tail?: string) => {
+export const truncate = (str: string, size: number, tail?: string): string => {
     function trim(str: string) {
         if (isEmpty(str)) {
             return str;
