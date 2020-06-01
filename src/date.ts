@@ -67,3 +67,17 @@ export const getWeekStartAndEnd = (
         endDate: formatTime(endDate.getTime(), endFormat)
     };
 };
+
+/**
+ * 延迟一段时间执行
+ *
+ * @param {number} timeout 延迟的时间
+ * @returns {Promise} 返回一个Promise对象
+ */
+export const sleep = (timeout: number): Promise<any> => {
+    if (timeout <= 17) {
+        const requestAnimation = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
+        return new Promise((resolve) => requestAnimation(resolve));
+    }
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+};
