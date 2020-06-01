@@ -1,13 +1,18 @@
-// import { isSameDay, formatTime } from "../src/date";
-import { isSameDay, formatTime } from "../dist/date";
+import { isSameDay, formatTime } from "../src/date";
 
 describe("date.isSameDay", () => {
     const now = 1590564078018;
     test(`date.isSameDay true`, () => {
-        expect(isSameDay(now, now)).toBeTruthy();
+        expect(isSameDay(now, now - 10)).toBeTruthy();
     });
     test(`date.isSameDay false`, () => {
         expect(isSameDay(now, now - 1000 * 60 * 60 * 24)).toBeFalsy();
+    });
+    test("date.isSameDay formattime and timestamp", () => {
+        expect(isSameDay("2020/05/27", now)).toBeTruthy();
+    });
+    test("date.isSameDay formattime and formattime", () => {
+        expect(isSameDay("2020/05/27", "2020/05/28")).toBeFalsy();
     });
 });
 
