@@ -3,9 +3,9 @@
  * @param {string} name 要获取的name
  * @returns {string | null} 返回name对应的数据，若不存在则返回null
  */
-export const getQueryString = (name: string): string | null => {
+export const getQueryString = (name: string, search = window.location.search): string | null => {
     const reg = new RegExp("[?&]" + name + "=([^&#]*)", "i");
-    const res = window.location.search.match(reg);
+    const res = search.match(reg);
 
     if (res && res.length > 1) {
         return decodeURIComponent(res[1]);
@@ -53,11 +53,11 @@ export const truncate = (str: string, size: number, tail?: string): string => {
 
     let nstr = trim(str);
 
-    const arr = Array.from(str);
+    const arr = Array.from(nstr);
 
     let cLen = arr.length;
     let length = size <= 0 ? cLen : size;
-    if (length > cLen) return nstr;
+    if (length >= cLen) return nstr;
     nstr = arr.slice(0, length).join("");
     nstr += tail || "...";
 
