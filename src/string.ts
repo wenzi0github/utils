@@ -1,19 +1,4 @@
 /**
- * 获取URL中的参数
- * @param {string} name 要获取的name
- * @returns {string | null} 返回name对应的数据，若不存在则返回null
- */
-export const getQueryString = (name: string, search = window.location.search): string | null => {
-    const reg = new RegExp("[?&]" + name + "=([^&#]*)", "i");
-    const res = search.match(reg);
-
-    if (res && res.length > 1) {
-        return decodeURIComponent(res[1]);
-    }
-    return null;
-};
-
-/**
  * 替换字符串中{key}为具体的数据，若在params中不存在要替换的key，则原样保留
  * @param {string} str 要更新的字符串
  * @param {object} params 替换的数据
