@@ -1,6 +1,6 @@
 // https://doc.ebichu.cc/jest/docs/zh-Hans/configuration.html
 module.exports = {
-    collectCoverage: false,
+    collectCoverage: true,
     transform: {
         "^.+\\.tsx?$": "ts-jest"
     },
