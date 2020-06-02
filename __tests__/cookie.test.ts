@@ -6,7 +6,7 @@ describe("setCookie", () => {
         expect(document.cookie).toBe("name=skeetershi");
     });
     test("set some cookie", () => {
-        setCookie("age", "24");
+        setCookie("age", "24", 2);
         setCookie("browswer", "chrome");
         expect(document.cookie).toBe("name=skeetershi; age=24; browswer=chrome");
     });
@@ -15,6 +15,10 @@ describe("setCookie", () => {
 describe("getCookie", () => {
     test("get one cookie", () => {
         const name = getCookie("name");
+        expect(name).toBe("skeetershi");
+    });
+    test("get one cookie no unescape", () => {
+        const name = getCookie("name", true);
         expect(name).toBe("skeetershi");
     });
 });
