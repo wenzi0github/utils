@@ -1,4 +1,6 @@
-import { getQueryString } from "../src/url";
+import { getQueryString, queryParse } from "../src/url";
+
+// https://example.org/?name=wenzi&age=24#card?articleId=11
 
 describe("getQueryString", () => {
     test("get exist key", () => {
@@ -19,5 +21,20 @@ describe("getQueryString", () => {
     test("get not exist key from search", () => {
         expect(getQueryString("name", "")).toBeNull();
         expect(getQueryString("age", "")).toBeNull();
+    });
+});
+
+describe("queryParse", () => {
+    test("should get all query queries", () => {
+        expect(queryParse()).toMatchObject({
+            name: "wenzi",
+            age: "24"
+        });
+    });
+    test("should get queries from param", () => {
+        expect(queryParse("?name=abcd&age=123")).toMatchObject({
+            name: "abcd",
+            age: "123"
+        });
     });
 });

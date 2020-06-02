@@ -66,9 +66,4 @@ describe("date.sleep", () => {
         await sleep(120);
         expect(performance.now() - now).toBeGreaterThan(120);
     });
-    test("sleep not exist requestAnimationFrame", async () => {
-        const now = performance.now();
-        await sleep(6);
-        expect(performance.now() - now).toBeGreaterThan(16);
-    });
 });
