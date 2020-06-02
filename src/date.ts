@@ -76,6 +76,7 @@ export const getWeekStartAndEnd = (
  */
 export const sleep = (timeout: number): Promise<any> => {
     if (timeout <= 17) {
+        // 低于17毫秒，则使用requestAnimationFrame来实现
         const requestAnimation = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
         return new Promise((resolve) => requestAnimation(resolve));
     }
