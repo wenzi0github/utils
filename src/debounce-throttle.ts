@@ -62,7 +62,7 @@ export const throttle = function (fn: () => void, timeout: number) {
  * @param {number} delay 取消执行事件的时间
  * @param {number} timeout 一定时间内肯定会执行一次，timeout > delay
  */
-const debounceThrottle = (fn: () => void, delay: number, timeout: number) => {
+export const debounceThrottle = (fn: () => void, delay: number, timeout: number) => {
     let timer: any = null;
     let previous = 0;
 
@@ -87,5 +87,3 @@ const debounceThrottle = (fn: () => void, delay: number, timeout: number) => {
         }
     };
 };
-
-export default debounceThrottle;

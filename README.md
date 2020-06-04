@@ -56,7 +56,7 @@ delCookie("name"); // 删除cookie
 import * as date from "gh-qqnews-utils/date";
 
 // 或单独按照方法分别引用也可以
-import { isSameDay, formatTime } from "gh-qqnews-utils/date";
+import { isSameDay, formatTime, getWeekStartAndEnd, sleep } from "gh-qqnews-utils/date";
 ```
 
 #### 判断两个日期或时间戳是否在同一天
@@ -116,4 +116,47 @@ async function fn() {
     await sleep(800);
     console.log("800ms 后执行");
 }
+```
+
+### 防抖和节流
+
+防抖可以类比影魔的大招，每次影魔摇大时被打断，都会重新开始摇。
+
+防抖的效果也这样，我们设定一定的时间后触发某个时间，当事件一直产生时，则时间重置，在短时间内多次触发同一个函数，只执行最后一次。
+
+节流，即一定时间间隔，只会触发一次函数，而且一定会触发。
+
+同时还有防抖和节流的结合体：防抖是防止短时间内多次触发，如果用户一直触发某个行为，那函数肯定就会永远也不执行，这里就需要一个节流的概念，当一定时间内还没触发函数，则主动触发一次。
+
+例如在向下滚动的图片懒加载过程中，若用户一直滚动，则图片就永远无法加载，这里我们可以设置防抖的间隔为 100ms，节流的间隔为 1000ms，意思是在用户 100ms 内再次产生滚动行为时，则取消执行加载图片的函数，但到 1000ms 的时候一定要触发一次加载图片的函数。
+
+#### 引入
+
+```javascript
+import { debounce, throttle, debounceThrottle } from "gh-qqnews-utils/debounce-throttle";
+```
+
+#### 防抖
+
+```javascript
+debounce(function(){
+    console.log('行为结束后的200ms后触发当前函数');
+}, 200)
+```
+
+#### 节流
+
+```javascript
+throttle(function() {
+    console.log('500ms内只执行一次当前函数');
+}, 500)
+```
+
+#### 防抖和节流
+
+```javascript
+debounceThrottle(function(){
+    console.log('行为结束后的200ms后触发当前函数');
+    console.log('若行为一直不结束，则1000ms时也会触发当前函数，然后重新计时');
+}, 200, 1000)
 ```
