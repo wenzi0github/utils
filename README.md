@@ -139,24 +139,72 @@ import { debounce, throttle, debounceThrottle } from "gh-qqnews-utils/debounce-t
 #### 防抖
 
 ```javascript
-debounce(function(){
-    console.log('行为结束后的200ms后触发当前函数');
-}, 200)
+debounce(function () {
+    console.log("行为结束后的200ms后触发当前函数");
+}, 200);
 ```
 
 #### 节流
 
 ```javascript
-throttle(function() {
-    console.log('500ms内只执行一次当前函数');
-}, 500)
+throttle(function () {
+    console.log("500ms内只执行一次当前函数");
+}, 500);
 ```
 
 #### 防抖和节流
 
 ```javascript
-debounceThrottle(function(){
-    console.log('行为结束后的200ms后触发当前函数');
-    console.log('若行为一直不结束，则1000ms时也会触发当前函数，然后重新计时');
-}, 200, 1000)
+debounceThrottle(
+    function () {
+        console.log("行为结束后的200ms后触发当前函数");
+        console.log("若行为一直不结束，则1000ms时也会触发当前函数，然后重新计时");
+    },
+    200,
+    1000
+);
+```
+
+### 常用的正则表达式
+
+例如，是否正确的手机号/email 邮箱/http 类型的 url。
+
+#### 引入
+
+```javascript
+import { isUrl, isPhone, isEmail } from "gh-qqnews-utils/regexp";
+```
+
+#### 是否是正确的 URL 地址
+
+```javascript
+/**
+ * 判断字符串是否为正确的url地址
+ * http://, https://, file://均认为是正确的
+ *
+ * @param {string} url 要判断的字符串
+ * @returns {boolean} 是否为正确的url地址
+ */
+
+isUrl("https://www.xiabingbao.com"); // true
+isurl("http://www.xiabingbao.com"); // true
+isUrl("file://"); // true
+isUrl("//www.xiabingbao.com"); //false
+```
+
+#### 是否为正确的手机号
+
+```javascript
+isPhone("13012345678"); // true
+isPhone("1301234567"); // false
+isPhone("130123456789"); // false
+isPhone("1301234567a"); // false
+```
+
+#### 是否为正确的邮箱地址
+
+```javascript
+isEmail("123456@qq.com"); // true
+isEmail("abcdef@gmail.com"); // true
+isEmail("12345c"); // false
 ```
