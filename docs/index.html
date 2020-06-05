@@ -418,6 +418,21 @@ stringify({
         }
     }
 }); <span class="hljs-comment">// "https://www.xiabingbao.com?from=utils&amp;num=1&amp;score=%7B%22math%22%3A80%2C%22eng%22%3A90%7D"</span></code></pre>
+				<a href="#页面可见性的检测" id="页面可见性的检测" style="color: inherit; text-decoration: none;">
+					<h3>页面可见性的检测</h3>
+				</a>
+				<a href="#引入-6" id="引入-6" style="color: inherit; text-decoration: none;">
+					<h4>引入</h4>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> PageVisibility <span class="hljs-keyword">from</span> <span class="hljs-string">"gh-qqnews-utils/visibility"</span>;</code></pre>
+				<a href="#使用" id="使用" style="color: inherit; text-decoration: none;">
+					<h4>使用</h4>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> visibility = <span class="hljs-keyword">new</span> PageVisibility();
+visibility.visibilityChange(<span class="hljs-function">(<span class="hljs-params">isShow</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(isShow); <span class="hljs-comment">// 可见性切换时触发</span>
+});
+visibility.isShow(); <span class="hljs-comment">// 当前页面的可见性</span></code></pre>
 				<a href="#维护者" id="维护者" style="color: inherit; text-decoration: none;">
 					<h2>维护者</h2>
 				</a>
