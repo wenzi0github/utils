@@ -434,6 +434,24 @@ stringify({
 }); // "https://www.xiabingbao.com?from=utils&num=1&score=%7B%22math%22%3A80%2C%22eng%22%3A90%7D"
 ```
 
+### 页面可见性的检测
+
+#### 引入
+
+```javascript
+import PageVisibility from "gh-qqnews-utils/visibility";
+```
+
+#### 使用
+
+```javascript
+const visibility = new PageVisibility();
+visibility.visibilityChange((isShow) => {
+    console.log(isShow); // 可见性切换时触发
+});
+visibility.isShow(); // 当前页面的可见性
+```
+
 ## 维护者
 
 -   [skeetershi](https://git.code.oa.com/u/skeetershi)
