@@ -36,7 +36,7 @@ getCookie("name"); // 获取cookie
 delCookie("name"); // 删除cookie
 ```
 
-### 关于日期的方法
+### 关于日期的方法(date)
 
 引入：
 
@@ -106,7 +106,7 @@ async function fn() {
 }
 ```
 
-### 防抖和节流
+### 防抖和节流(debounce-throttle)
 
 防抖可以类比影魔的大招，每次影魔摇大时被打断，都会重新开始摇。
 
@@ -221,7 +221,7 @@ querystring.stringify(
 ); // "a=20&b=40"
 ```
 
-### 常用的正则表达式
+### 常用的正则表达式(regexp)
 
 例如，是否正确的手机号/email 邮箱/http 类型的 url。
 
@@ -265,7 +265,7 @@ isEmail("abcdef@gmail.com"); // true
 isEmail("12345c"); // false
 ```
 
-### 字符串操作
+### 字符串操作(string)
 
 #### 引入
 
@@ -309,7 +309,7 @@ loadScript("https://mat1.gtimg.com/libs/jquery/jquery-1.11.1.js")
     });
 ```
 
-### 获取 ua 中的数据
+### 获取 ua 中的数据(ua)
 
 #### 引入
 
@@ -433,3 +433,12 @@ stringify({
     }
 }); // "https://www.xiabingbao.com?from=utils&num=1&score=%7B%22math%22%3A80%2C%22eng%22%3A90%7D"
 ```
+
+## 维护者
+
+-   [skeetershi](https://git.code.oa.com/u/skeetershi)
+-   [wenzi](https://github.com/wenzi0github)
+
+## 协议
+
+[MIT](./LICENSE)
