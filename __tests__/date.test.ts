@@ -59,7 +59,7 @@ describe("date.sleep", () => {
         const now = performance.now();
         await sleep(6);
         // 低于17毫秒，则使用requestAnimationFrame来实现
-        expect(performance.now() - now).toBeGreaterThan(16);
+        expect(performance.now() - now).toBeGreaterThan(10);
     });
     test("sleep more then 18", async () => {
         const now = performance.now();

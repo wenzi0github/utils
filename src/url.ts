@@ -3,50 +3,7 @@
 // 在node和现代浏览器中，内置了 URL 和 URLSearchParams 来实现url和url参数的操作
 
 // 更齐全的库： https://www.npmjs.com/package/qs
-
-/**
- * 获取URL中的参数
- * @param {string} name 要获取的name
- * @returns {string | null} 返回name对应的数据，若不存在则返回null
- */
-export const getQueryString = (name: string, search = window.location.search): string | null => {
-    if (typeof window.URLSearchParams === "function") {
-        const u = new window.URLSearchParams(search);
-        return u.get(name);
-    } else {
-        const reg = new RegExp("[?&]" + name + "=([^&#]*)", "i");
-        const res = search.match(reg);
-
-        if (res && res.length > 1) {
-            return decodeURIComponent(res[1]);
-        }
-        return null;
-    }
-};
-
-/**
- * 解析url中所有的参数
- * @param {string} search
- * @returns {object} obj 所有的参数
- */
-export const queryParse = (search = window.location.search) => {
-    const result: {
-        [name: string]: string;
-    } = {};
-    if (typeof window.URLSearchParams === "function") {
-        const u = new window.URLSearchParams(search);
-        u.forEach((value, name) => {
-            result[name] = decodeURIComponent(value);
-        });
-    } else {
-        const arr = search.substr(1).split("&");
-        arr.forEach((item) => {
-            const [name, value] = item.split("=");
-            result[name] = decodeURIComponent(value);
-        });
-    }
-    return result;
-};
+import * as qs from "./querystring";
 
 /**
  * 把url类型的字符串解析出各个的字段
@@ -54,7 +11,7 @@ export const queryParse = (search = window.location.search) => {
  * @param {string} url 要解析的字符串
  * @returns {URL}
  */
-export const urlParse = (url: string): URL => {
+export const parse = (url: string = window.location.href): URL => {
     if (typeof window !== "undefined" && typeof window.URL === "function") {
         return new window.URL(url);
     } else {
@@ -80,23 +37,34 @@ export const urlParse = (url: string): URL => {
     }
 };
 
-interface QueryToStringProps {
-    [name: string]: any;
+interface StringIfyOptions {
+    protocol?: "http:" | "https:" | "file:";
+    port?: string;
+    hostname?: string;
+    pathname?: string;
+    query?: {
+        [name: string]: any;
+    };
 }
+
 /**
- * 将obj类型的数据，拼接为可识别的url参数字符串
- * @param {object} query 要解析的obj
- * @returns {string}
+ * 将几个部分拼接为一个完整的url
+ * @param {StringIfyOptions} param 部分参数
+ * @returns {string} 拼接后的url
  */
-export const queryStringify = (query: QueryToStringProps): string => {
-    let str: string = "";
-    let name: string = "";
-    for (name in query) {
-        let item = query[name];
-        if (typeof item === "object") {
-            item = JSON.stringify(item);
-        }
-        str += `&${name}=${encodeURIComponent(item)}`;
+export const stringify = ({ protocol = "https:", port = "", hostname = "", pathname = "", query }: StringIfyOptions): string => {
+    let _query = "";
+    if (query) {
+        _query = "?" + qs.stringify(query);
     }
-    return str.substr(1);
+    return protocol + "//" + hostname + (port ? ":" + port : port) + pathname + _query;
+};
+
+/**
+ * 将几个部分拼接为一个完整的url
+ * @param {StringIfyOptions} param 部分参数
+ * @returns {string} 拼接后的url
+ */
+export const format = (params: StringIfyOptions): string => {
+    return stringify(params);
 };
