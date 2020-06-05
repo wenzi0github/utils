@@ -208,3 +208,47 @@ isEmail("123456@qq.com"); // true
 isEmail("abcdef@gmail.com"); // true
 isEmail("12345c"); // false
 ```
+
+### 字符串操作
+
+#### 引入
+
+```javascript
+import { strReplace, truncate, loadScript } from "gh-qqnews-utils/string";
+```
+
+#### 替换字符串中的变量
+
+```javascript
+const str = "my name is {name}, my age is {age}"; // 注意，此括号不是ES6中模板字符串的变量
+
+strReplace(str, {
+    name: "wenzi",
+    age: 24
+}); // "my name is wenzi, my age is 24"
+```
+
+#### 截取字符串，并添加后缀
+
+按照规定的长度 size 截取字符串，若 size 大于等于字符串的长度，或 size 小于等于 0，则字符串原样返回。
+
+若 size 符合要求，则正常截取字符串，一个中文字符按照 1 个长度计算；结尾默认`...`结束，不过可以自行选择。
+
+```javascript
+truncate("hello world", 12); // hello world
+truncate("hello world", 11); // hello world
+truncate("hello world", 4); // hell...
+truncate("hello world", 4, "***"); // hell***
+```
+
+#### 加载一个 js 文件
+
+```javascript
+loadScript("https://mat1.gtimg.com/libs/jquery/jquery-1.11.1.js")
+    .then(() => {
+        console.log("load js success");
+    })
+    .catch(() => {
+        console.error("load js failed");
+    });
+```
