@@ -72,14 +72,15 @@
 					<h2>安装</h2>
 				</a>
 				<p>使用 npm:</p>
-				<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> npm install gh-qqnews-report</span></code></pre>
+				<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> npm install gh-qqnews-utils</span></code></pre>
 				<p>使用 bower:</p>
-				<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> bower install gh-qqnews-report</span></code></pre>
+				<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> bower install gh-qqnews-utils</span></code></pre>
 				<p>使用 yarn:</p>
-				<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> yarn add gh-qqnews-report</span></code></pre>
+				<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> yarn add gh-qqnews-utils</span></code></pre>
 				<a href="#如何使用" id="如何使用" style="color: inherit; text-decoration: none;">
 					<h2>如何使用</h2>
 				</a>
+				<p>html 格式的文档在 docs 文件夹中：<a href="./docs/index.html">docs</a></p>
 				<a href="#操作-cookie" id="操作-cookie" style="color: inherit; text-decoration: none;">
 					<h3>操作 cookie</h3>
 				</a>
@@ -87,12 +88,347 @@
 
 setCookie(<span class="hljs-string">"name"</span>, <span class="hljs-string">"skeetershi"</span>, <span class="hljs-number">30</span>); <span class="hljs-comment">// 设置cookie，有效期为30天</span>
 getCookie(<span class="hljs-string">"name"</span>); <span class="hljs-comment">// 获取cookie</span>
-delCookie(<span class="hljs-string">"name"</span>);</code></pre>
-				<a href="#关于日期的方法" id="关于日期的方法" style="color: inherit; text-decoration: none;">
-					<h3>关于日期的方法</h3>
+delCookie(<span class="hljs-string">"name"</span>); <span class="hljs-comment">// 删除cookie</span></code></pre>
+				<a href="#关于日期的方法date" id="关于日期的方法date" style="color: inherit; text-decoration: none;">
+					<h3>关于日期的方法(date)</h3>
 				</a>
-				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { isSameDay } <span class="hljs-keyword">from</span> <span class="hljs-string">"gh-qqnews-utils/date"</span>;
-isSameDay(<span class="hljs-string">"2020/05/06"</span>, <span class="hljs-string">"2020/05/07"</span>); <span class="hljs-comment">// false</span></code></pre>
+				<p>引入：</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> date <span class="hljs-keyword">from</span> <span class="hljs-string">"gh-qqnews-utils/date"</span>;
+
+<span class="hljs-comment">// 或单独按照方法分别引用也可以</span>
+<span class="hljs-keyword">import</span> { isSameDay, formatTime, getWeekStartAndEnd, sleep } <span class="hljs-keyword">from</span> <span class="hljs-string">"gh-qqnews-utils/date"</span>;</code></pre>
+				<a href="#判断两个日期或时间戳是否在同一天" id="判断两个日期或时间戳是否在同一天" style="color: inherit; text-decoration: none;">
+					<h4>判断两个日期或时间戳是否在同一天</h4>
+				</a>
+				<p>第二个参数缺省时则使用当前时刻的时间戳进行比较。</p>
+				<pre><code class="language-javascript">isSameDay(<span class="hljs-string">"2020/05/06"</span>, <span class="hljs-string">"2020/05/07"</span>); <span class="hljs-comment">// 判断两个日期是否是同一天</span>
+isSameDay(<span class="hljs-number">1591283730344</span>, <span class="hljs-number">1591283720344</span>); <span class="hljs-comment">// 判断两个毫秒级的时间戳是否在同一天</span>
+isSameDay(<span class="hljs-number">1591283730344</span>); <span class="hljs-comment">// 判断此时间戳与当前时刻是否是同一天</span></code></pre>
+				<a href="#格式化时间戳" id="格式化时间戳" style="color: inherit; text-decoration: none;">
+					<h4>格式化时间戳</h4>
+				</a>
+				<p>根据输入的格式，格式化时间戳。</p>
+				<pre><code class="language-javascript"><span class="hljs-comment">/**
+ * 格式化时间，时间戳-&gt;格式化
+ * <span class="hljs-doctag">@param </span>timestamp 传入的时间戳，单位（毫秒）
+ * <span class="hljs-doctag">@param </span>format 格式：yyyy/MM/dd hh:mm:ss
+ * yyyy/MM/dd hh:mm:ss 分别表示年/月/日 时:分:秒
+ */</span>
+formatTime(<span class="hljs-number">1591283730344</span>, <span class="hljs-string">"yyyy/MM/dd hh:mm:ss"</span>); <span class="hljs-comment">// 2020/06/04 23:15:30</span>
+formatTime(<span class="hljs-number">1591283730344</span>, <span class="hljs-string">"yyyy年MM月dd日 hh时mm分ss秒"</span>); <span class="hljs-comment">// 2020年06月04日 23时15分30秒</span>
+formatTime(<span class="hljs-number">1591283730344</span>, <span class="hljs-string">"hh:mm:ss"</span>); <span class="hljs-comment">// 23:15:30</span></code></pre>
+				<a href="#获取给定时间戳的周一和周日的时间" id="获取给定时间戳的周一和周日的时间" style="color: inherit; text-decoration: none;">
+					<h4>获取给定时间戳的周一和周日的时间</h4>
+				</a>
+				<p>格式的要求跟上面的一样。</p>
+				<pre><code class="language-javascript"><span class="hljs-comment">/**
+ * 获取当前星期的起始日期和结束日期
+ * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> </span>startFormat 周一的时间格式
+ * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> </span>endFormat   周日的时间格式
+ * <span class="hljs-doctag">@param <span class="hljs-type">{number}</span> </span>timestamp   所在周的时间戳，若不传入，则默认使用当前时刻的时间戳
+ * <span class="hljs-doctag">@returns <span class="hljs-type">{string, string}</span> <span class="hljs-type">{startDate, endDate}</span> </span>返回的数据
+ */</span>
+
+getWeekStartAndEnd(<span class="hljs-string">"MM月dd日"</span>, <span class="hljs-string">"MM月dd日"</span>, <span class="hljs-number">1591283730344</span>);
+<span class="hljs-comment">/**
+ * startDate: "06月01日"
+ * endDate: "06月07日"
+ */</span></code></pre>
+				<a href="#延迟一段时间后执行" id="延迟一段时间后执行" style="color: inherit; text-decoration: none;">
+					<h4>延迟一段时间后执行</h4>
+				</a>
+				<pre><code class="language-javascript">sleep(<span class="hljs-number">1000</span>).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"1000ms 后执行当前代码"</span>);
+});
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">await</span> sleep(<span class="hljs-number">800</span>);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"800ms 后执行"</span>);
+}</code></pre>
+				<a href="#防抖和节流debounce-throttle" id="防抖和节流debounce-throttle" style="color: inherit; text-decoration: none;">
+					<h3>防抖和节流(debounce-throttle)</h3>
+				</a>
+				<p>防抖可以类比影魔的大招，每次影魔摇大时被打断，都会重新开始摇。</p>
+				<p>防抖的效果也这样，我们设定一定的时间后触发某个时间，当事件一直产生时，则时间重置，在短时间内多次触发同一个函数，只执行最后一次。</p>
+				<p>节流，即一定时间间隔，只会触发一次函数，而且一定会触发。</p>
+				<p>同时还有防抖和节流的结合体：防抖是防止短时间内多次触发，如果用户一直触发某个行为，那函数肯定就会永远也不执行，这里就需要一个节流的概念，当一定时间内还没触发函数，则主动触发一次。</p>
+				<p>例如在向下滚动的图片懒加载过程中，若用户一直滚动，则图片就永远无法加载，这里我们可以设置防抖的间隔为 100ms，节流的间隔为 1000ms，意思是在用户 100ms 内再次产生滚动行为时，则取消执行加载图片的函数，但到 1000ms 的时候一定要触发一次加载图片的函数。</p>
+				<a href="#引入" id="引入" style="color: inherit; text-decoration: none;">
+					<h4>引入</h4>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { debounce, throttle, debounceThrottle } <span class="hljs-keyword">from</span> <span class="hljs-string">"gh-qqnews-utils/debounce-throttle"</span>;</code></pre>
+				<a href="#防抖" id="防抖" style="color: inherit; text-decoration: none;">
+					<h4>防抖</h4>
+				</a>
+				<pre><code class="language-javascript">debounce(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"行为结束后的200ms后触发当前函数"</span>);
+}, <span class="hljs-number">200</span>);</code></pre>
+				<a href="#节流" id="节流" style="color: inherit; text-decoration: none;">
+					<h4>节流</h4>
+				</a>
+				<pre><code class="language-javascript">throttle(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"500ms内只执行一次当前函数"</span>);
+}, <span class="hljs-number">500</span>);</code></pre>
+				<a href="#防抖和节流" id="防抖和节流" style="color: inherit; text-decoration: none;">
+					<h4>防抖和节流</h4>
+				</a>
+				<pre><code class="language-javascript">debounceThrottle(
+    <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"行为结束后的200ms后触发当前函数"</span>);
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"若行为一直不结束，则1000ms时也会触发当前函数，然后重新计时"</span>);
+    },
+    <span class="hljs-number">200</span>,
+    <span class="hljs-number">1000</span>
+);</code></pre>
+				<a href="#网站地址中的参数操作（querystring）" id="网站地址中的参数操作（querystring）" style="color: inherit; text-decoration: none;">
+					<h3>网站地址中的参数操作（querystring）</h3>
+				</a>
+				<a href="#引入-1" id="引入-1" style="color: inherit; text-decoration: none;">
+					<h4>引入</h4>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { parse, stringify, getQueryString } <span class="hljs-keyword">from</span> <span class="hljs-string">"gh-qqnews-utils/querystring"</span>;
+<span class="hljs-comment">// 或</span>
+<span class="hljs-keyword">import</span> querystring <span class="hljs-keyword">from</span> <span class="hljs-string">"gh-qqnews-utils/querystring"</span>;</code></pre>
+				<a href="#解析出所有的参数" id="解析出所有的参数" style="color: inherit; text-decoration: none;">
+					<h4>解析出所有的参数</h4>
+				</a>
+				<p>默认使用<code>window.URLSearchParams</code>进行解析，否则进行字符串的拆分。</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> querys = querystring.parse(); <span class="hljs-comment">// 默认解析当前链接中的search部分</span>
+<span class="hljs-built_in">console</span>.log(querys);
+
+querystring.parse(<span class="hljs-string">"?name=abcd&amp;age=123"</span>); <span class="hljs-comment">// {name: "abcd",age: "123"}</span></code></pre>
+				<a href="#将-obj-类型的数据拼接位字符串" id="将-obj-类型的数据拼接位字符串" style="color: inherit; text-decoration: none;">
+					<h4>将 obj 类型的数据拼接位字符串</h4>
+				</a>
+				<p>参数配置：</p>
+				<pre><code class="language-javascript"><span class="hljs-comment">/**
+ * 将obj类型的数据，拼接为可识别的url参数字符串
+ * <span class="hljs-doctag">@param <span class="hljs-type">{object}</span> </span>query 要解析的obj
+ * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> </span>sep 分隔符，默认为&amp;
+ * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> </span>eq name和value中的连接符，默认为=
+ * <span class="hljs-doctag">@param <span class="hljs-type">{StringiyOptions}</span> </span>额外控制的配置
+ * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+ */</span></code></pre>
+				<p>用法：</p>
+				<pre><code class="language-javascript">querystring.stringify({
+    <span class="hljs-attr">name</span>: <span class="hljs-string">"wenzi"</span>,
+    <span class="hljs-attr">age</span>: <span class="hljs-string">"24"</span>
+}); <span class="hljs-comment">// "name=wenzi&amp;age=24"</span>
+
+querystring.stringify(
+    {
+        <span class="hljs-attr">name</span>: <span class="hljs-string">"wenzi"</span>,
+        <span class="hljs-attr">age</span>: <span class="hljs-string">"24"</span>
+    },
+    <span class="hljs-string">"|"</span>,
+    <span class="hljs-string">"*"</span>
+); <span class="hljs-comment">// "name*wenzi|age*24"</span>
+
+querystring.stringify(
+    {
+        <span class="hljs-attr">a</span>: <span class="hljs-number">10</span>,
+        <span class="hljs-attr">b</span>: <span class="hljs-number">20</span>
+    },
+    <span class="hljs-literal">null</span>,
+    <span class="hljs-literal">null</span>,
+    {
+        <span class="hljs-attr">encode</span>: <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {
+            <span class="hljs-keyword">return</span> value * <span class="hljs-number">2</span>;
+        }
+    }
+); <span class="hljs-comment">// "a=20&amp;b=40"</span></code></pre>
+				<a href="#常用的正则表达式regexp" id="常用的正则表达式regexp" style="color: inherit; text-decoration: none;">
+					<h3>常用的正则表达式(regexp)</h3>
+				</a>
+				<p>例如，是否正确的手机号/email 邮箱/http 类型的 url。</p>
+				<a href="#引入-2" id="引入-2" style="color: inherit; text-decoration: none;">
+					<h4>引入</h4>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { isUrl, isPhone, isEmail } <span class="hljs-keyword">from</span> <span class="hljs-string">"gh-qqnews-utils/regexp"</span>;</code></pre>
+				<a href="#是否是正确的-url-地址" id="是否是正确的-url-地址" style="color: inherit; text-decoration: none;">
+					<h4>是否是正确的 URL 地址</h4>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-comment">/**
+ * 判断字符串是否为正确的url地址
+ * http://, https://, file://均认为是正确的
+ *
+ * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> </span>url 要判断的字符串
+ * <span class="hljs-doctag">@returns <span class="hljs-type">{boolean}</span> </span>是否为正确的url地址
+ */</span>
+
+isUrl(<span class="hljs-string">"https://www.xiabingbao.com"</span>); <span class="hljs-comment">// true</span>
+isurl(<span class="hljs-string">"http://www.xiabingbao.com"</span>); <span class="hljs-comment">// true</span>
+isUrl(<span class="hljs-string">"file://"</span>); <span class="hljs-comment">// true</span>
+isUrl(<span class="hljs-string">"//www.xiabingbao.com"</span>); <span class="hljs-comment">//false</span></code></pre>
+				<a href="#是否为正确的手机号" id="是否为正确的手机号" style="color: inherit; text-decoration: none;">
+					<h4>是否为正确的手机号</h4>
+				</a>
+				<pre><code class="language-javascript">isPhone(<span class="hljs-string">"13012345678"</span>); <span class="hljs-comment">// true</span>
+isPhone(<span class="hljs-string">"1301234567"</span>); <span class="hljs-comment">// false</span>
+isPhone(<span class="hljs-string">"130123456789"</span>); <span class="hljs-comment">// false</span>
+isPhone(<span class="hljs-string">"1301234567a"</span>); <span class="hljs-comment">// false</span></code></pre>
+				<a href="#是否为正确的邮箱地址" id="是否为正确的邮箱地址" style="color: inherit; text-decoration: none;">
+					<h4>是否为正确的邮箱地址</h4>
+				</a>
+				<pre><code class="language-javascript">isEmail(<span class="hljs-string">"123456@qq.com"</span>); <span class="hljs-comment">// true</span>
+isEmail(<span class="hljs-string">"abcdef@gmail.com"</span>); <span class="hljs-comment">// true</span>
+isEmail(<span class="hljs-string">"12345c"</span>); <span class="hljs-comment">// false</span></code></pre>
+				<a href="#字符串操作string" id="字符串操作string" style="color: inherit; text-decoration: none;">
+					<h3>字符串操作(string)</h3>
+				</a>
+				<a href="#引入-3" id="引入-3" style="color: inherit; text-decoration: none;">
+					<h4>引入</h4>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { strReplace, truncate, loadScript } <span class="hljs-keyword">from</span> <span class="hljs-string">"gh-qqnews-utils/string"</span>;</code></pre>
+				<a href="#替换字符串中的变量" id="替换字符串中的变量" style="color: inherit; text-decoration: none;">
+					<h4>替换字符串中的变量</h4>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> str = <span class="hljs-string">"my name is {name}, my age is {age}"</span>; <span class="hljs-comment">// 注意，此括号不是ES6中模板字符串的变量</span>
+
+strReplace(str, {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">"wenzi"</span>,
+    <span class="hljs-attr">age</span>: <span class="hljs-number">24</span>
+}); <span class="hljs-comment">// "my name is wenzi, my age is 24"</span></code></pre>
+				<a href="#截取字符串，并添加后缀" id="截取字符串，并添加后缀" style="color: inherit; text-decoration: none;">
+					<h4>截取字符串，并添加后缀</h4>
+				</a>
+				<p>按照规定的长度 size 截取字符串，若 size 大于等于字符串的长度，或 size 小于等于 0，则字符串原样返回。</p>
+				<p>若 size 符合要求，则正常截取字符串，一个中文字符按照 1 个长度计算；结尾默认<code>...</code>结束，不过可以自行选择。</p>
+				<pre><code class="language-javascript">truncate(<span class="hljs-string">"hello world"</span>, <span class="hljs-number">12</span>); <span class="hljs-comment">// hello world</span>
+truncate(<span class="hljs-string">"hello world"</span>, <span class="hljs-number">11</span>); <span class="hljs-comment">// hello world</span>
+truncate(<span class="hljs-string">"hello world"</span>, <span class="hljs-number">4</span>); <span class="hljs-comment">// hell...</span>
+truncate(<span class="hljs-string">"hello world"</span>, <span class="hljs-number">4</span>, <span class="hljs-string">"***"</span>); <span class="hljs-comment">// hell***</span></code></pre>
+				<a href="#加载一个-js-文件" id="加载一个-js-文件" style="color: inherit; text-decoration: none;">
+					<h4>加载一个 js 文件</h4>
+				</a>
+				<pre><code class="language-javascript">loadScript(<span class="hljs-string">"https://mat1.gtimg.com/libs/jquery/jquery-1.11.1.js"</span>)
+    .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"load js success"</span>);
+    })
+    .catch(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.error(<span class="hljs-string">"load js failed"</span>);
+    });</code></pre>
+				<a href="#获取-ua-中的数据ua" id="获取-ua-中的数据ua" style="color: inherit; text-decoration: none;">
+					<h3>获取 ua 中的数据(ua)</h3>
+				</a>
+				<a href="#引入-4" id="引入-4" style="color: inherit; text-decoration: none;">
+					<h4>引入</h4>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { getSystemInfo, getBrowserInfo } <span class="hljs-keyword">from</span> <span class="hljs-string">"gh-qqnews-utils/ua"</span>;</code></pre>
+				<a href="#获取系统级的数据" id="获取系统级的数据" style="color: inherit; text-decoration: none;">
+					<h4>获取系统级的数据</h4>
+				</a>
+				<pre><code class="language-javascript">getSystemInfo();
+<span class="hljs-comment">/*
+// iOS系统
+{
+    android: false,
+    ios: true,
+    manufacture: "",
+    name: "iphone",
+    version: "13.2.3"
+}
+
+// android系统
+{
+    android: true,
+    ios: false,
+    manufacture: "samsung",
+    name: "android",
+    version: "5.0"
+}
+*/</span></code></pre>
+				<a href="#获取所在-app-或者浏览器的数据" id="获取所在-app-或者浏览器的数据" style="color: inherit; text-decoration: none;">
+					<h4>获取所在 APP 或者浏览器的数据</h4>
+				</a>
+				<pre><code class="language-javascript">getBrowserInfo();
+<span class="hljs-comment">/*
+// iOS系统
+{
+    name: "safari",
+    version: "604.1"
+}
+
+// android
+{
+    name: "chrome",
+    version: "81.0"
+}
+*/</span></code></pre>
+				<a href="#操作-url" id="操作-url" style="color: inherit; text-decoration: none;">
+					<h3>操作 url</h3>
+				</a>
+				<a href="#引入-5" id="引入-5" style="color: inherit; text-decoration: none;">
+					<h4>引入</h4>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { parse, stringify, format } <span class="hljs-keyword">from</span> <span class="hljs-string">"gh-qqnews-utils/url"</span>;
+<span class="hljs-comment">// format与stringify的操作一样</span></code></pre>
+				<a href="#解析-url-字符串的各个部分" id="解析-url-字符串的各个部分" style="color: inherit; text-decoration: none;">
+					<h4>解析 url 字符串的各个部分</h4>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-comment">// 默认使用window.URL解析，否则创建一个a标签来解析</span>
+parse(); <span class="hljs-comment">// 参数默认为当前的url</span>
+<span class="hljs-comment">/*
+{
+    hash: "",
+    host: "joke.qq.com:8080",
+    hostname: "joke.qq.com",
+    href: "http://joke.qq.com:8080/works/starlist/rank?a=1&amp;b=2",
+    origin: "http://joke.qq.com:8080",
+    pathname: "/works/starlist/rank",
+    port: "8080",
+    protocol: "http:",
+    search: "?a=1&amp;b=2"
+}
+*/</span></code></pre>
+				<a href="#将各个部分组装成一个完成的-url-地址" id="将各个部分组装成一个完成的-url-地址" style="color: inherit; text-decoration: none;">
+					<h4>将各个部分组装成一个完成的 url 地址</h4>
+				</a>
+				<p>各个部分均可以缺省，然后使用默认值：</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">interface</span> StringIfyOptions {
+    protocol?: <span class="hljs-string">"http:"</span> | <span class="hljs-string">"https:"</span> | <span class="hljs-string">"file:"</span>;
+    port?: <span class="hljs-built_in">string</span>;
+    hostname?: <span class="hljs-built_in">string</span>;
+    pathname?: <span class="hljs-built_in">string</span>;
+    query?: {
+        [name: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">any</span>;
+    };
+}</code></pre>
+				<p>使用：</p>
+				<pre><code class="language-javascript">stringify({
+    <span class="hljs-attr">hostname</span>: <span class="hljs-string">"www.xiabingbao.com"</span>,
+    <span class="hljs-attr">pathname</span>: <span class="hljs-string">"/post/fe/hash-history-router.html"</span>
+}); <span class="hljs-comment">// "https://www.xiabingbao.com/post/fe/hash-history-router.html"</span>
+
+stringify({
+    <span class="hljs-attr">protocol</span>: <span class="hljs-string">"http:"</span>,
+    <span class="hljs-attr">port</span>: <span class="hljs-string">"8080"</span>,
+    <span class="hljs-attr">hostname</span>: <span class="hljs-string">"www.xiabingbao.com"</span>,
+    <span class="hljs-attr">pathname</span>: <span class="hljs-string">"/post/fe/hash-history-router.html"</span>
+}); <span class="hljs-comment">// "http://www.xiabingbao.com:8080/post/fe/hash-history-router.html"</span>
+
+stringify({
+    <span class="hljs-attr">hostname</span>: <span class="hljs-string">"www.xiabingbao.com"</span>,
+    <span class="hljs-attr">query</span>: {
+        <span class="hljs-attr">from</span>: <span class="hljs-string">"utils"</span>,
+        <span class="hljs-attr">num</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">score</span>: {
+            <span class="hljs-attr">math</span>: <span class="hljs-number">80</span>,
+            <span class="hljs-attr">eng</span>: <span class="hljs-number">90</span>
+        }
+    }
+}); <span class="hljs-comment">// "https://www.xiabingbao.com?from=utils&amp;num=1&amp;score=%7B%22math%22%3A80%2C%22eng%22%3A90%7D"</span></code></pre>
+				<a href="#维护者" id="维护者" style="color: inherit; text-decoration: none;">
+					<h2>维护者</h2>
+				</a>
+				<ul>
+					<li><a href="https://git.code.oa.com/u/skeetershi">skeetershi</a></li>
+					<li><a href="https://github.com/wenzi0github">wenzi</a></li>
+				</ul>
+				<a href="#协议" id="协议" style="color: inherit; text-decoration: none;">
+					<h2>协议</h2>
+				</a>
+				<p><a href="./LICENSE">MIT</a></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -109,6 +445,9 @@ isSameDay(<span class="hljs-string">"2020/05/06"</span>, <span class="hljs-strin
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/_debounce_throttle_.html">&quot;debounce-<wbr>throttle&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_querystring_.html">&quot;querystring&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/_regexp_.html">&quot;regexp&quot;</a>

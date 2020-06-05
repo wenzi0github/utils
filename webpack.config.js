@@ -23,7 +23,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].js",
-        // libraryExport: "default",
+        libraryExport: "[name]" === "visibility" ? "default" : undefined,
         library: "[name]",
         libraryTarget: "umd"
     },
