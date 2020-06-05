@@ -21,7 +21,7 @@ module.exports = {
     mode: "production",
     entry: getFileEntry(),
     output: {
-        path: path.resolve(__dirname, "dist"),
+        path: path.resolve(__dirname),
         filename: "[name].js",
         libraryExport: "[name]" === "visibility" ? "default" : undefined,
         library: "[name]",
