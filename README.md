@@ -22,18 +22,6 @@ $ bower install gh-qqnews-utils
 $ yarn add gh-qqnews-utils
 ```
 
-使用 jsDelivr 的 CDN 地址:
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/gh-qqnews-utils"></script>
-```
-
-使用 unpkg 的 CDN 地址:
-
-```html
-<script src="https://unpkg.com/gh-qqnews-utils"></script>
-```
-
 ## 如何使用
 
 html 格式的文档在 docs 文件夹中：[docs](./docs/index.html)
@@ -165,6 +153,74 @@ debounceThrottle(
 );
 ```
 
+### 网站地址中的参数操作（querystring）
+
+#### 引入
+
+```javascript
+import { parse, stringify, getQueryString } from "gh-qqnews-utils/querystring";
+// 或
+import querystring from "gh-qqnews-utils/querystring";
+```
+
+#### 解析出所有的参数
+
+默认使用`window.URLSearchParams`进行解析，否则进行字符串的拆分。
+
+```javascript
+const querys = querystring.parse(); // 默认解析当前链接中的search部分
+console.log(querys);
+
+querystring.parse("?name=abcd&age=123"); // {name: "abcd",age: "123"}
+```
+
+#### 将 obj 类型的数据拼接位字符串
+
+参数配置：
+
+```javascript
+/**
+ * 将obj类型的数据，拼接为可识别的url参数字符串
+ * @param {object} query 要解析的obj
+ * @param {string} sep 分隔符，默认为&
+ * @param {string} eq name和value中的连接符，默认为=
+ * @param {StringiyOptions} 额外控制的配置
+ * @returns {string}
+ */
+```
+
+用法：
+
+```javascript
+querystring.stringify({
+    name: "wenzi",
+    age: "24"
+}); // "name=wenzi&age=24"
+
+querystring.stringify(
+    {
+        name: "wenzi",
+        age: "24"
+    },
+    "|",
+    "*"
+); // "name*wenzi|age*24"
+
+querystring.stringify(
+    {
+        a: 10,
+        b: 20
+    },
+    null,
+    null,
+    {
+        encode: (value) => {
+            return value * 2;
+        }
+    }
+); // "a=20&b=40"
+```
+
 ### 常用的正则表达式
 
 例如，是否正确的手机号/email 邮箱/http 类型的 url。
@@ -251,4 +307,129 @@ loadScript("https://mat1.gtimg.com/libs/jquery/jquery-1.11.1.js")
     .catch(() => {
         console.error("load js failed");
     });
+```
+
+### 获取 ua 中的数据
+
+#### 引入
+
+```javascript
+import { getSystemInfo, getBrowserInfo } from "gh-qqnews-utils/ua";
+```
+
+#### 获取系统级的数据
+
+```javascript
+getSystemInfo();
+/*
+// iOS系统
+{
+    android: false,
+    ios: true,
+    manufacture: "",
+    name: "iphone",
+    version: "13.2.3"
+}
+
+// android系统
+{
+    android: true,
+    ios: false,
+    manufacture: "samsung",
+    name: "android",
+    version: "5.0"
+}
+*/
+```
+
+#### 获取所在 APP 或者浏览器的数据
+
+```javascript
+getBrowserInfo();
+/*
+// iOS系统
+{
+    name: "safari",
+    version: "604.1"
+}
+
+// android
+{
+    name: "chrome",
+    version: "81.0"
+}
+*/
+```
+
+### 操作 url
+
+#### 引入
+
+```javascript
+import { parse, stringify, format } from "gh-qqnews-utils/url";
+// format与stringify的操作一样
+```
+
+#### 解析 url 字符串的各个部分
+
+```javascript
+// 默认使用window.URL解析，否则创建一个a标签来解析
+parse(); // 参数默认为当前的url
+/*
+{
+    hash: "",
+    host: "joke.qq.com:8080",
+    hostname: "joke.qq.com",
+    href: "http://joke.qq.com:8080/works/starlist/rank?a=1&b=2",
+    origin: "http://joke.qq.com:8080",
+    pathname: "/works/starlist/rank",
+    port: "8080",
+    protocol: "http:",
+    search: "?a=1&b=2"
+}
+*/
+```
+
+#### 将各个部分组装成一个完成的 url 地址
+
+各个部分均可以缺省，然后使用默认值：
+
+```typescript
+interface StringIfyOptions {
+    protocol?: "http:" | "https:" | "file:";
+    port?: string;
+    hostname?: string;
+    pathname?: string;
+    query?: {
+        [name: string]: any;
+    };
+}
+```
+
+使用：
+
+```javascript
+stringify({
+    hostname: "www.xiabingbao.com",
+    pathname: "/post/fe/hash-history-router.html"
+}); // "https://www.xiabingbao.com/post/fe/hash-history-router.html"
+
+stringify({
+    protocol: "http:",
+    port: "8080",
+    hostname: "www.xiabingbao.com",
+    pathname: "/post/fe/hash-history-router.html"
+}); // "http://www.xiabingbao.com:8080/post/fe/hash-history-router.html"
+
+stringify({
+    hostname: "www.xiabingbao.com",
+    query: {
+        from: "utils",
+        num: 1,
+        score: {
+            math: 80,
+            eng: 90
+        }
+    }
+}); // "https://www.xiabingbao.com?from=utils&num=1&score=%7B%22math%22%3A80%2C%22eng%22%3A90%7D"
 ```

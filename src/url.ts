@@ -2,7 +2,6 @@
 // http://nodejs.cn/api/url.html#url_class_urlsearchparams
 // 在node和现代浏览器中，内置了 URL 和 URLSearchParams 来实现url和url参数的操作
 
-// 更齐全的库： https://www.npmjs.com/package/qs
 import * as qs from "./querystring";
 
 /**

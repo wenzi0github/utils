@@ -40,5 +40,5 @@ module.exports = {
             }
         ]
     },
-    plugins: [new webpack.BannerPlugin(`gh-utils v${packageConfig.version}\nlast update: ${new Date().toLocaleString()}\nauthor: skeetershi`)]
+    plugins: [new webpack.BannerPlugin(`gh-qqnews-utils/[name] v${packageConfig.version}\nlast update: ${new Date().toLocaleString()}\nauthor: skeetershi`)]
 };

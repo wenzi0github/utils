@@ -1,3 +1,5 @@
+// 更齐全的库： https://www.npmjs.com/package/qs
+
 interface ParseOptions {
     decode?: (value: string) => string;
 }
@@ -51,6 +53,9 @@ interface StringiyOptions {
 /**
  * 将obj类型的数据，拼接为可识别的url参数字符串
  * @param {object} query 要解析的obj
+ * @param {string} sep 分隔符，默认为&
+ * @param {string} eq name和value中的连接符，默认为=
+ * @param {StringiyOptions} 额外控制的配置
  * @returns {string}
  */
 export const stringify = (
