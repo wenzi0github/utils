@@ -22,16 +22,61 @@ $ bower install gh-qqnews-utils
 $ yarn add gh-qqnews-utils
 ```
 
-## 如何使用
+## 模块的名称
 
-html 格式的文档在 docs 文件夹中：[docs](./docs/index.html)
+当前工具包中有如下的工具列表，各位开发者可以按需引入：
+
+-   cookie: 操作 cookie；
+-   date: 日期和时间的操作；
+-   debounceThrottle：防抖和节流；
+-   querystring： 链接中的参数；
+-   regexp：常用的正则表达式；
+-   string：字符串操作；
+-   ua：常用的 ua 判断；
+-   url：URL 操作；
+-   visibility： 页面的可见性；
+
+## 引入
+
+### 直接引入
+
+```javascript
+import utils from "gh-qqnews-utils";
+utils.cookie.setCookie("name", "wenzi");
+```
+
+### 按需引入
+
+```javascript
+import { cookie } from "gh-qqnews-utils";
+// 其他的还有 date, debounceThrottle, querystring, regexp, string, ua, url, visibility
+
+const { setCookie, getCookie, delCookie } = cookie;
+```
+
+### 按模块文件引入
+
+```javascript
+import * as cookie from "gh-qqnews-utils/cookie";
+
+cookie.setCookie("name", "wenzi");
+```
+
+```javascript
+import { setCookie, getCookie, delCookie } from "gh-qqnews-utils/cookie";
+setCookie("name", "skeetershi", 30); // 设置cookie，有效期为30天，默认为365天
+getCookie("name"); // 获取cookie
+delCookie("name"); // 删除cookie
+```
+
+## 如何使用
 
 ### 操作 cookie
 
 ```javascript
 import { setCookie, getCookie, delCookie } from "gh-qqnews-utils/cookie";
 
-setCookie("name", "skeetershi", 30); // 设置cookie，有效期为30天
+setCookie("name", "skeetershi", 30); // 设置cookie，有效期为30天，默认为365天
 getCookie("name"); // 获取cookie
 delCookie("name"); // 删除cookie
 ```
