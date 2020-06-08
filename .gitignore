@@ -8,7 +8,8 @@ date.d.ts
 date.js
 debounce-throttle.d.ts
 debounce-throttle.js
-index.d.ts
+utils.d.ts
+utils.js
 querystring.d.ts
 querystring.js
 regexp.d.ts

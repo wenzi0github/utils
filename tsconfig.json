@@ -23,7 +23,7 @@
         //     "jest"
         //   ],
         "paths": {
-            "@/*": ["src/index.ts"]
+            "@/*": ["src/utils.ts"]
         },
         "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
     },
