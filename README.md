@@ -22,6 +22,18 @@ $ bower install gh-qqnews-utils
 $ yarn add gh-qqnews-utils
 ```
 
+使用 jsDelivr 的 CDN 地址:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/gh-qqnews-utils"></script>
+```
+
+使用 unpkg 的 CDN 地址:
+
+```html
+<script src="https://unpkg.com/gh-qqnews-utils"></script>
+```
+
 ## 模块的名称
 
 当前工具包中有如下的工具列表，各位开发者可以按需引入：
