@@ -2,6 +2,9 @@
 
 在日常工作中，我们积累了很多的工具方法，帮助我们提升效率。
 
+[![version](https://img.shields.io/npm/v/gh-qqnews-utils?color=brightgreen&style=flat-square)](https://www.npmjs.com/package/gh-qqnews-utils)
+![size](https://img.shields.io/bundlephobia/min/gh-qqnews-utils)
+
 ## 安装
 
 使用 npm:
