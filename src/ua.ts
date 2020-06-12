@@ -1,3 +1,7 @@
+// http://www.fynas.com/ua
+// https://github.com/fynas/ua/blob/master/ua_string.csv
+// https://github.com/KHwang9883/MobileModels
+
 const userAgent = window.navigator.userAgent.toLocaleLowerCase();
 
 /**
@@ -9,7 +13,8 @@ export const getSystemInfo = () => {
         version: "",
         ios: false,
         android: false,
-        manufacture: "" // 手机品牌
+        manufacture: "", // 手机品牌
+        model: "" // 品牌中的型号
     };
     const osTypes = {
         iphone: userAgent.match(/(iphone)\s(os\s)?([\d_]+)/i),
@@ -30,15 +35,24 @@ export const getSystemInfo = () => {
 
         const androidTypes = {
             samsung: userAgent.match(/(gt|sm|sch)-(.*)\s+/), // 三星手机
-            huawei: /huawei|honor/.test(userAgent), // 华为手机或者荣耀系列
+            huawei: /huawei|honor/.test(userAgent), // 华为手机
+            honor: /honor/.test(userAgent), // 荣耀系列
             vivo: /vivo/.test(userAgent), // vivo手机
-            xiaomi: /HM|RedMi|Mi/i.test(userAgent) // 小米手机
+            xiaomi: /hm|mi/i.test(userAgent), // 小米手机
+            redmi: /redmi/.test(userAgent), // 红米手机
+            oppo: /oppo/.test(userAgent) // OPPO
         };
+        // 匹配机型
         for (let key in androidTypes) {
             if ((androidTypes as any)[key]) {
                 os.manufacture = key;
                 break;
             }
+        }
+        // 匹配品牌
+        const modelType = userAgent.match(new RegExp(`build/(${os.manufacture})?(.*?)[()|;)$]`));
+        if (modelType && modelType.length >= 3) {
+            os.model = modelType[2];
         }
     } else if (osTypes.ipad) {
         os.name = "ipad";
