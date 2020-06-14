@@ -126,7 +126,7 @@ export const getBrowserInfo = (uagt?: string) => {
         safari: userAgent.match(/safari\/(\d+\.\d+)/),
         hwbrowser: userAgent.match(/huawei|honor/), // 华为手机
         qzone: userAgent.match(/qzone\/[\w\d_]*(\d\.\d)[.\w\d_]*/i), // 手机QQ空间
-        weishi: userAgent.match(/weishi_(\d+?\.\d+?\.\d+?)/i)
+        weishi: userAgent.match(/weishi_(\d+?\.\d+?\.\d+?)/i) // 微视
     };
     let key: BrowserInfoKeys = "mqqbrowser";
     for (key in browserTypes) {
