@@ -377,6 +377,16 @@ loadScript("https://mat1.gtimg.com/libs/jquery/jquery-1.11.1.js")
 import { getSystemInfo, getBrowserInfo } from "gh-qqnews-utils/ua";
 ```
 
+| 字段        | 数值                           | 说明                |
+| ----------- | ------------------------------ | ------------------- |
+| name        | iphone\|ipad\|android\|windows | 操作系统的名称      |
+| version     | 6.0.1                          | 版本号              |
+| ios         | true                           | 是否是 iOS 系统     |
+| android     | false                          | 是否是 Android 系统 |
+| manufacture | huawei                         | 手机的品牌          |
+| model       | mt7-cl00                       | 型号                |
+| build       | mt7-cl00                       | 构建的流水线        |
+
 #### 获取系统级的数据
 
 ```javascript
@@ -395,9 +405,11 @@ getSystemInfo();
 {
     android: true,
     ios: false,
-    manufacture: "samsung",
     name: "android",
-    version: "5.0"
+    version: "5.0",
+    manufacture: "huawei",
+    model: 'mt7-cl00',
+    build: 'mt7-cl00'
 }
 */
 ```

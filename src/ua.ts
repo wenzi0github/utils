@@ -2,11 +2,25 @@
 // https://github.com/fynas/ua/blob/master/ua_string.csv
 // https://github.com/KHwang9883/MobileModels
 
+type SystemName = "iphone" | "ipad" | "android" | "windows" | "";
+
+interface SystemInfo {
+    name: SystemName;
+    version: string;
+    ios: boolean;
+    android: boolean;
+    manufacture: string;
+    model: string;
+    build: string;
+}
+
 /**
  * 获取当前系统和版本号
+ * @param {string} uagt 要传入的ua，若不传入，则使用当前页面的ua
+ * @returns {SystemInfo} 返回系统的信息
  */
-export const getSystemInfo = (uagt?: string) => {
-    const os = {
+export const getSystemInfo = (uagt?: string): SystemInfo => {
+    const os: SystemInfo = {
         name: "",
         version: "",
         ios: false,
@@ -24,7 +38,7 @@ export const getSystemInfo = (uagt?: string) => {
         ipad: userAgent.match(/(ipad).*\s([\d_]+)/i),
         ipod: userAgent.match(/(ipod).*\s([\d_]+)/i),
         android: userAgent.match(/(android)\s([\d.]+)/i),
-        windows: userAgent.match(/Windows(\s+\w+)?\s+?(\d+\.\d+)/),
+        windows: userAgent.match(/windows(\s+\w+)?\s+?(\d+\.\d+)/),
         ios: /(iphone|ipad|ipod|ios)/i.test(userAgent)
     };
     if (osTypes.iphone) {
@@ -67,6 +81,9 @@ export const getSystemInfo = (uagt?: string) => {
         os.name = "ipad";
         os.version = osTypes.ipad[2].replace(/_/g, ".");
         os.ios = true;
+    } else if (osTypes.windows) {
+        os.name = "windows";
+        os.version = osTypes.windows[2];
     }
     return os;
 };
@@ -91,8 +108,15 @@ type BrowserInfoKeys =
 
 /**
  * 获取当前APP和版本号
+ * @param {string} uagt 要传入的ua，若不传入，则使用当前页面的ua
+ * @returns {{name: BrowserInfoKeys | '', version: string}} 所在app的名称和版本号
  */
-export const getBrowserInfo = (uagt?: string) => {
+export const getBrowserInfo = (
+    uagt?: string
+): {
+    name: BrowserInfoKeys | "";
+    version: string;
+} => {
     const browser: {
         name: BrowserInfoKeys | "";
         version: string;
