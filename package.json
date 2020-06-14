@@ -1,72 +1,72 @@
 {
-  "name": "gh-qqnews-utils",
-  "version": "0.0.3",
-  "description": "前端中常用的工具方法",
-  "keywords": [
-    "utils",
-    "工具",
-    "cookie",
-    "date",
-    "debounce",
-    "querystring",
-    "regexp",
-    "string",
-    "ua",
-    "url",
-    "visibility"
-  ],
-  "main": "utils.js",
-  "files": [
-    "cookie.d.ts",
-    "cookie.js",
-    "date.d.ts",
-    "date.js",
-    "debounceThrottle.d.ts",
-    "debounceThrottle.js",
-    "utils.d.ts",
-    "utils.js",
-    "querystring.d.ts",
-    "querystring.js",
-    "regexp.d.ts",
-    "regexp.js",
-    "string.d.ts",
-    "string.js",
-    "ua.d.ts",
-    "ua.js",
-    "url.d.ts",
-    "url.js",
-    "visibility.d.ts",
-    "visibility.js"
-  ],
-  "scripts": {
-    "test": "jest",
-    "doc": "./node_modules/typedoc/bin/typedoc --out ./docs ./src",
-    "build": "npm run test && webpack -p --config webpack.config.js",
-    "clean": "node script/clear-build.js"
-  },
-  "repository": "https://git.code.oa.com/news-gh-team/gh-qqnews-utils",
-  "author": "skeetershi",
-  "license": "MIT",
-  "devDependencies": {
-    "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-conventional": "^8.3.4",
-    "@types/jest": "^25.2.3",
-    "@typescript-eslint/eslint-plugin": "^3.0.0",
-    "@typescript-eslint/parser": "^3.0.0",
-    "babel-jest": "^26.0.1",
-    "eslint": "^7.1.0",
-    "husky": "^4.2.5",
-    "jest": "^26.0.1",
-    "ts-jest": "^26.0.0",
-    "ts-loader": "^7.0.5",
-    "typedoc": "^0.17.7",
-    "typescript": "^3.9.3",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    "name": "gh-qqnews-utils",
+    "version": "0.0.4",
+    "description": "前端中常用的工具方法",
+    "keywords": [
+        "utils",
+        "工具",
+        "cookie",
+        "date",
+        "debounce",
+        "querystring",
+        "regexp",
+        "string",
+        "ua",
+        "url",
+        "visibility"
+    ],
+    "main": "utils.js",
+    "files": [
+        "cookie.d.ts",
+        "cookie.js",
+        "date.d.ts",
+        "date.js",
+        "debounceThrottle.d.ts",
+        "debounceThrottle.js",
+        "utils.d.ts",
+        "utils.js",
+        "querystring.d.ts",
+        "querystring.js",
+        "regexp.d.ts",
+        "regexp.js",
+        "string.d.ts",
+        "string.js",
+        "ua.d.ts",
+        "ua.js",
+        "url.d.ts",
+        "url.js",
+        "visibility.d.ts",
+        "visibility.js"
+    ],
+    "scripts": {
+        "test": "jest",
+        "doc": "./node_modules/typedoc/bin/typedoc --out ./docs ./src",
+        "build": "npm run test && webpack -p --config webpack.config.js",
+        "clean": "node script/clear-build.js"
+    },
+    "repository": "https://git.code.oa.com/news-gh-team/gh-qqnews-utils",
+    "author": "skeetershi",
+    "license": "MIT",
+    "devDependencies": {
+        "@commitlint/cli": "^8.3.5",
+        "@commitlint/config-conventional": "^8.3.4",
+        "@types/jest": "^25.2.3",
+        "@typescript-eslint/eslint-plugin": "^3.0.0",
+        "@typescript-eslint/parser": "^3.0.0",
+        "babel-jest": "^26.0.1",
+        "eslint": "^7.1.0",
+        "husky": "^4.2.5",
+        "jest": "^26.0.1",
+        "ts-jest": "^26.0.0",
+        "ts-loader": "^7.0.5",
+        "typedoc": "^0.17.7",
+        "typescript": "^3.9.3",
+        "webpack": "^4.43.0",
+        "webpack-cli": "^3.3.11"
+    },
+    "husky": {
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
     }
-  }
 }
