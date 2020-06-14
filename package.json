@@ -44,7 +44,7 @@
         "build": "npm run test && webpack -p --config webpack.config.js",
         "clean": "node script/clear-build.js"
     },
-    "repository": "https://git.code.oa.com/news-gh-team/gh-qqnews-utils",
+    "repository": "https://github.com/wenzi0github/utils.git",
     "author": "skeetershi",
     "license": "MIT",
     "devDependencies": {
