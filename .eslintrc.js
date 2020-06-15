@@ -6,7 +6,7 @@ module.exports = {
     env: {
         //指定代码的运行环境
         browser: true,
-        node: true,
+        node: true
     },
     // extends: ["plugin:prettier/recommended"],
     // env: {
@@ -29,8 +29,8 @@ module.exports = {
             "error",
             "always",
             {
-                null: "ignore",
-            },
+                null: "ignore"
+            }
         ],
         "no-console": "off",
         "no-undef": "off",
@@ -43,13 +43,13 @@ module.exports = {
         // allow debugger during development
         "no-mixed-spaces-and-tabs": "off",
         semi: ["error", "always"],
-        "indent": [true, "spaces", 4],
+        indent: [2, "spaces", 4],
         "no-tabs": "off",
         "one-var": "off",
         "one-var-declaration-per-line": ["error", "initializations"],
         "no-var": "error",
         "linebreak-style": ["error", "unix"],
         quotes: ["error", "single"],
-        semi: ["error", "always"],
-    },
+        semi: ["error", "always"]
+    }
 };
