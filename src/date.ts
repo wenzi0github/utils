@@ -15,12 +15,13 @@ export const isSameDay = (timestampa: number | string, timestampb: number | stri
 
 /**
  * 格式化时间，时间戳->格式化
- * @param timestamp 传入的时间戳，单位（毫秒）
- * @param format 格式：yyyy/MM/dd hh:mm:ss
+ * @param {number|string} timestamp 时间戳，单位（毫秒）或者可转换为 Date 对象的字符串
+ * @param {string} format 格式：yyyy/MM/dd hh:mm:ss
+ * @returns {string} 格式化后的时间
  */
-export const formatTime = (timestamp: number, format: string = "yyyy/MM/dd hh:mm:ss") => {
+export const formatTime = (timestamp: number | string, format: string = "yyyy/MM/dd hh:mm:ss"): string => {
     const date = new Date(timestamp);
-    let dateFormat: any = {
+    const dateFormat: any = {
         "y+": date.getFullYear(),
         "M+": date.getMonth() + 1,
         "d+": date.getDate(), // 日

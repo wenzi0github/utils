@@ -6,7 +6,8 @@ module.exports = {
     env: {
         //指定代码的运行环境
         browser: true,
-        node: true
+        node: true,
+        es6: true
     },
     // extends: ["plugin:prettier/recommended"],
     // env: {

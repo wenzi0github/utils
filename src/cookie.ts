@@ -4,7 +4,7 @@
  * @param {string|number} value 写cookie的值
  * @param {number} day 存储的时间，默认30天
  */
-export const setCookie = (name: string, value: string | number, day: number = 30) => {
+export const setCookie = (name: string, value: string | number, day: number = 30): void => {
     const exp = new Date();
     exp.setTime(exp.getTime() + day * 24 * 60 * 60 * 1000);
     document.cookie = name + "=" + escape(value + "") + ";path=/;expires=" + exp.toUTCString();
