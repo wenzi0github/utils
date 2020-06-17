@@ -25,7 +25,8 @@ module.exports = {
         filename: "[name].js",
         libraryExport: "[name]" === "visibility" ? "default" : undefined,
         library: "[name]",
-        libraryTarget: "umd"
+        libraryTarget: "umd",
+        globalObject: "this" // fixed by https://github.com/wenzi0github/npm-webpack-ts/issues/2
     },
     resolve: {
         extensions: [".tsx", ".ts", ".js"]
