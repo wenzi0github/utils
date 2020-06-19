@@ -55,8 +55,8 @@ export const getSystemInfo = (uagt?: string): SystemInfo => {
             huawei: /huawei|honor/.test(userAgent), // 华为手机
             honor: /honor/.test(userAgent), // 荣耀系列
             vivo: /vivo/.test(userAgent), // vivo手机
-            xiaomi: /hm|mi/i.test(userAgent), // 小米手机
             redmi: /redmi/.test(userAgent), // 红米手机
+            xiaomi: /hm|mi/i.test(userAgent) && !/redmi/.test(userAgent), // 小米手机
             oppo: /oppo/.test(userAgent), // OPPO
             oneplus: /oneplus/.test(userAgent) // 一加手机
         };
@@ -68,9 +68,10 @@ export const getSystemInfo = (uagt?: string): SystemInfo => {
             }
         }
         // 匹配型号
-        const modelType = userAgent.match(/zh-cn;(.*)build/);
-        if (modelType && modelType.length >= 2) {
-            os.model = modelType[1].replace(os.manufacture, "").replace(/(^\s*)|(\s*$)/g, "");
+        const modelType = userAgent.match(/;(\szh-cn;)?\s(.*)\sbuild/i);
+        if (modelType && modelType.length >= 3) {
+            const models = modelType[2].split(";");
+            os.model = models[models.length - 1].replace(os.manufacture, "").replace(/(^\s*)|(\s*$)/g, "");
         }
         // 匹配流水线
         const buildType = userAgent.match(new RegExp(`build/(${os.manufacture})?(.*?)[()|;)$]`));
