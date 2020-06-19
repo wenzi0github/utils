@@ -12,6 +12,7 @@ interface SystemInfo {
     manufacture: string;
     model: string;
     build: string;
+    nettype: string;
 }
 
 /**
@@ -27,7 +28,8 @@ export const getSystemInfo = (uagt?: string): SystemInfo => {
         android: false,
         manufacture: "", // 手机品牌
         model: "", // 品牌中的型号
-        build: "" // 生产流水线，一般与型号对应，但型号对用户来说更加直观。例如小米2s中，品牌为xiaomi，型号为2s，流水线为JRO03L
+        build: "", // 生产流水线，一般与型号对应，但型号对用户来说更加直观。例如小米2s中，品牌为xiaomi，型号为2s，流水线为JRO03L
+        nettype: "" // 网络状态
     };
     if (typeof window === "undefined") {
         return os;
@@ -86,6 +88,12 @@ export const getSystemInfo = (uagt?: string): SystemInfo => {
         os.name = "windows";
         os.version = osTypes.windows[2];
     }
+
+    const network = userAgent.match(/nettype\/(.*)\s+/);
+    if (network) {
+        os.nettype = network[1];
+    }
+
     return os;
 };
 
@@ -105,7 +113,8 @@ type BrowserInfoKeys =
     | "safari"
     | "hwbrowser"
     | "qzone"
-    | "weishi";
+    | "weishi"
+    | "miuibrowser";
 
 /**
  * 获取当前APP和版本号
@@ -151,7 +160,8 @@ export const getBrowserInfo = (
         safari: userAgent.match(/safari\/(\d+\.\d+)/),
         hwbrowser: userAgent.match(/huawei|honor/), // 华为手机
         qzone: userAgent.match(/qzone\/[\w\d_]*(\d\.\d)[.\w\d_]*/i), // 手机QQ空间
-        weishi: userAgent.match(/weishi_(\d+?\.\d+?\.\d+?)/i) // 微视
+        weishi: userAgent.match(/weishi_(\d+?\.\d+?\.\d+?)/i), // 微视
+        miuibrowser: userAgent.match(/miuibrowser\/(\d+?\.\d+?\.\d+?)/i) // 小米自带的浏览器
     };
     let key: BrowserInfoKeys = "mqqbrowser";
     for (key in browserTypes) {
