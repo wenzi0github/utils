@@ -44,7 +44,7 @@ module.exports = {
         // allow debugger during development
         "no-mixed-spaces-and-tabs": "off",
         semi: ["error", "always"],
-        indent: [2, "spaces", 4],
+        "indent": [2, "spaces", 4],
         "no-tabs": "off",
         "one-var": "off",
         "one-var-declaration-per-line": ["error", "initializations"],
