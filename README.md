@@ -7,10 +7,16 @@
 
 ## 安装
 
+使用 tnpm:
+
+```shell
+$ tnpm install gh-qqnews-utils --save
+```
+
 使用 npm:
 
 ```shell
-$ npm install gh-qqnews-utils
+$ npm install gh-qqnews-utils --save
 ```
 
 使用 bower:
