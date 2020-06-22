@@ -67,3 +67,15 @@ export const stringify = ({ protocol = "https:", port = "", hostname = "", pathn
 export const format = (params: StringIfyOptions): string => {
     return stringify(params);
 };
+
+/**
+ * check url if absolute
+ * @param {string} url
+ * @returns {boolean}
+ */
+export const isAbsolute = (url: string): boolean => {
+    // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
+    // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
+    // by any combination of letters, digits, plus, period, or hyphen.
+    return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
+};

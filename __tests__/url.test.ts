@@ -1,4 +1,4 @@
-import { parse, stringify, format } from "../src/url";
+import { parse, stringify, format, isAbsolute } from "../src/url";
 
 // https://example.org/?name=wenzi&age=24#card?articleId=11
 
@@ -87,5 +87,34 @@ describe("format", () => {
                 }
             })
         ).toBe("https://www.xiabingbao.com?from=utils&num=1&score=%7B%22math%22%3A80%2C%22eng%22%3A90%7D");
+    });
+});
+
+describe("isAbsolute", () => {
+    test("isAbsolute http", () => {
+        expect(isAbsolute("http://www.xiabingbao.com")).toBeTruthy();
+        expect(isAbsolute("http://")).toBeTruthy();
+        expect(isAbsolute("http://xiabingbao.com")).toBeTruthy();
+    });
+    test("isAbsolute https", () => {
+        expect(isAbsolute("https://www.xiabingbao.com")).toBeTruthy();
+        expect(isAbsolute("https://")).toBeTruthy();
+        expect(isAbsolute("https://xiabingbao.com")).toBeTruthy();
+    });
+    test('isabolsute //', () => {
+        expect(isAbsolute("//xiabingbao.com")).toBeTruthy();
+        expect(isAbsolute("//")).toBeTruthy();
+    });
+    test("isAbsolute file", () => {
+        expect(isAbsolute("file://usr/a.txt")).toBeTruthy();
+        expect(isAbsolute("file://")).toBeTruthy();
+    });
+    test("isAbsolute qqnews", () => {
+        expect(isAbsolute("qqnews://article_9500")).toBeTruthy();
+        expect(isAbsolute("qqnews://")).toBeTruthy();
+    });
+    test("isAbsolute other", () => {
+        expect(isAbsolute("xiabingbao.com")).toBeFalsy();
+        expect(isAbsolute("/post/fe/hash-history-router.html")).toBeFalsy();
     });
 });
