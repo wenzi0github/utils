@@ -48,14 +48,41 @@ $ yarn add gh-qqnews-utils
 当前工具包中有如下的工具列表，各位开发者可以按需引入：
 
 -   cookie: 操作 cookie；
+    -   setCookie: 设置 cookie；
+    -   getCookie: 获取 cookie；
+    -   delCookie：删除 cookie；
 -   date: 日期和时间的操作；
+    -   isSameDay: 两个时间戳或格式化的字符串是否在同一天；
+    -   formatTime: 将时间戳转为格式化的字符串；
+    -   getWeekStartAndEnd: 获取当前星期的起始日期和结束日期
+    -   sleep: 延迟一段时间执行；
 -   debounceThrottle：防抖和节流；
+    -   debounce: 防抖；
+    -   throttle: 节流；
+    -   debounceThrottle： 防抖和节流函数的结合；
 -   querystring： 链接中的参数；
+    -   parse: 解析 url 中所有的参数；
+    -   getQueryString: 获取 url 查询字符串中的参数；
+    -   stringify: 将 obj 类型的数据拼接为参数字符串('a=1&b=2')
 -   regexp：常用的正则表达式；
+    -   isUrl: 是否正确的 url 地址；
+    -   isPhone: 是否正确的手机号码，11 位的数字；
+    -   isEmail: 是否正确的 email 邮箱地址
 -   string：字符串操作；
--   ua：常用的 ua 判断；
+    -   strReplace: 替换字符串中{key}为具体的数据；
+    -   truncate: 截取字符串；
+    -   loadScript: 加载 js 文件；
+-   ua：常用的 ua 判断
+    -   getSystemInfo: 获取当前系统和版本号；
+    -   getBrowserInfo: 获取当前 APP 和版本号；
 -   url：URL 操作；
+    -   parse: 把 url 类型的字符串解析出各个的字段；
+    -   stringify: 将几个部分拼接为一个完整的 url；
+    -   format: 将几个部分拼接为一个完整的 url；
+    -   isAbsolute: url 是否是绝对地址；
 -   visibility： 页面的可见性；
+
+[TOC]
 
 ## 引入
 
@@ -92,7 +119,9 @@ delCookie("name"); // 删除cookie
 
 ## 如何使用
 
-### 操作 cookie
+### cookie
+
+操作 cookie
 
 ```javascript
 import { setCookie, getCookie, delCookie } from "gh-qqnews-utils/cookie";
@@ -102,7 +131,9 @@ getCookie("name"); // 获取cookie
 delCookie("name"); // 删除cookie
 ```
 
-### 关于日期的方法(date)
+### date
+
+日期的方法(date)
 
 引入：
 
@@ -113,7 +144,9 @@ import * as date from "gh-qqnews-utils/date";
 import { isSameDay, formatTime, getWeekStartAndEnd, sleep } from "gh-qqnews-utils/date";
 ```
 
-#### 判断两个日期或时间戳是否在同一天
+#### isSameDay
+
+判断两个日期或时间戳是否在同一天
 
 第二个参数缺省时则使用当前时刻的时间戳进行比较。
 
@@ -123,7 +156,9 @@ isSameDay(1591283730344, 1591283720344); // 判断两个毫秒级的时间戳是
 isSameDay(1591283730344); // 判断此时间戳与当前时刻是否是同一天
 ```
 
-#### 格式化时间戳
+#### formatTime
+
+格式化时间戳。
 
 根据输入的格式，格式化时间戳。
 
@@ -139,7 +174,9 @@ formatTime(1591283730344, "yyyy年MM月dd日 hh时mm分ss秒"); // 2020年06月0
 formatTime(1591283730344, "hh:mm:ss"); // 23:15:30
 ```
 
-#### 获取给定时间戳的周一和周日的时间
+#### getWeekStartAndEnd
+
+获取给定时间戳的周一和周日的时间
 
 格式的要求跟上面的一样。
 
@@ -159,7 +196,9 @@ getWeekStartAndEnd("MM月dd日", "MM月dd日", 1591283730344);
  */
 ```
 
-#### 延迟一段时间后执行
+#### sleep
+
+延迟一段时间后执行
 
 ```javascript
 sleep(1000).then(() => {
@@ -172,7 +211,9 @@ async function fn() {
 }
 ```
 
-### 防抖和节流(debounce-throttle)
+### debounceThrottle
+
+防抖和节流。
 
 防抖可以类比影魔的大招，每次影魔摇大时被打断，都会重新开始摇。
 
@@ -190,7 +231,9 @@ async function fn() {
 import { debounce, throttle, debounceThrottle } from "gh-qqnews-utils/debounce-throttle";
 ```
 
-#### 防抖
+#### debounce
+
+防抖
 
 ```javascript
 debounce(function () {
@@ -198,7 +241,9 @@ debounce(function () {
 }, 200);
 ```
 
-#### 节流
+#### throttle
+
+节流
 
 ```javascript
 throttle(function () {
@@ -206,7 +251,9 @@ throttle(function () {
 }, 500);
 ```
 
-#### 防抖和节流
+#### debounceThrottle
+
+防抖和节流
 
 ```javascript
 debounceThrottle(
@@ -219,7 +266,9 @@ debounceThrottle(
 );
 ```
 
-### 网站地址中的参数操作（querystring）
+### querystring
+
+网站地址中的参数操作。
 
 #### 引入
 
@@ -229,7 +278,9 @@ import { parse, stringify, getQueryString } from "gh-qqnews-utils/querystring";
 import querystring from "gh-qqnews-utils/querystring";
 ```
 
-#### 解析出所有的参数
+#### parse
+
+解析出所有的参数
 
 默认使用`window.URLSearchParams`进行解析，否则进行字符串的拆分。
 
@@ -240,7 +291,18 @@ console.log(querys);
 querystring.parse("?name=abcd&age=123"); // {name: "abcd",age: "123"}
 ```
 
-#### 将 obj 类型的数据拼接位字符串
+#### getQueryString
+
+获取 url 查询字符串中的参数；
+
+```javascript
+getQueryString("name"); // abcd
+getQueryString("name", "?name=abcd&age=123"); // abcd
+```
+
+#### stringify
+
+将 obj 类型的数据拼接位字符串
 
 参数配置：
 
@@ -287,7 +349,9 @@ querystring.stringify(
 ); // "a=20&b=40"
 ```
 
-### 常用的正则表达式(regexp)
+### regexp
+
+常用的正则表达式
 
 例如，是否正确的手机号/email 邮箱/http 类型的 url。
 
@@ -297,7 +361,9 @@ querystring.stringify(
 import { isUrl, isPhone, isEmail } from "gh-qqnews-utils/regexp";
 ```
 
-#### 是否是正确的 URL 地址
+#### isUrl
+
+是否是正确的 URL 地址
 
 ```javascript
 /**
@@ -314,7 +380,9 @@ isUrl("file://"); // true
 isUrl("//www.xiabingbao.com"); //false
 ```
 
-#### 是否为正确的手机号
+#### isPhone
+
+是否为正确的手机号
 
 ```javascript
 isPhone("13012345678"); // true
@@ -323,7 +391,9 @@ isPhone("130123456789"); // false
 isPhone("1301234567a"); // false
 ```
 
-#### 是否为正确的邮箱地址
+#### isEmail
+
+是否为正确的邮箱地址
 
 ```javascript
 isEmail("123456@qq.com"); // true
@@ -331,7 +401,9 @@ isEmail("abcdef@gmail.com"); // true
 isEmail("12345c"); // false
 ```
 
-### 字符串操作(string)
+### string
+
+字符串操作(string)
 
 #### 引入
 
@@ -339,7 +411,9 @@ isEmail("12345c"); // false
 import { strReplace, truncate, loadScript } from "gh-qqnews-utils/string";
 ```
 
-#### 替换字符串中的变量
+#### strReplace
+
+替换字符串中的变量
 
 ```javascript
 const str = "my name is {name}, my age is {age}"; // 注意，此括号不是ES6中模板字符串的变量
@@ -350,7 +424,9 @@ strReplace(str, {
 }); // "my name is wenzi, my age is 24"
 ```
 
-#### 截取字符串，并添加后缀
+#### truncate
+
+截取字符串，并添加后缀
 
 按照规定的长度 size 截取字符串，若 size 大于等于字符串的长度，或 size 小于等于 0，则字符串原样返回。
 
@@ -363,7 +439,9 @@ truncate("hello world", 4); // hell...
 truncate("hello world", 4, "***"); // hell***
 ```
 
-#### 加载一个 js 文件
+#### loadScript
+
+加载一个 js 文件
 
 ```javascript
 loadScript("https://mat1.gtimg.com/libs/jquery/jquery-1.11.1.js")
@@ -375,7 +453,9 @@ loadScript("https://mat1.gtimg.com/libs/jquery/jquery-1.11.1.js")
     });
 ```
 
-### 获取 ua 中的数据(ua)
+### ua
+
+获取 ua 中的数据(ua)
 
 #### 引入
 
@@ -393,7 +473,9 @@ import { getSystemInfo, getBrowserInfo } from "gh-qqnews-utils/ua";
 | model       | mt7-cl00                       | 型号                |
 | build       | mt7-cl00                       | 构建的流水线        |
 
-#### 获取系统级的数据
+#### getSystemInfo
+
+获取系统级的数据
 
 ```javascript
 getSystemInfo();
@@ -420,7 +502,9 @@ getSystemInfo();
 */
 ```
 
-#### 获取所在 APP 或者浏览器的数据
+#### getBrowserInfo
+
+获取所在 APP 或者浏览器的数据
 
 ```javascript
 getBrowserInfo();
@@ -439,7 +523,9 @@ getBrowserInfo();
 */
 ```
 
-### 操作 url
+### url
+
+操作 url
 
 #### 引入
 
@@ -448,7 +534,9 @@ import { parse, stringify, format } from "gh-qqnews-utils/url";
 // format与stringify的操作一样
 ```
 
-#### 解析 url 字符串的各个部分
+#### parse
+
+解析 url 字符串的各个部分
 
 ```javascript
 // 默认使用window.URL解析，否则创建一个a标签来解析
@@ -468,7 +556,9 @@ parse(); // 参数默认为当前的url
 */
 ```
 
-#### 将各个部分组装成一个完成的 url 地址
+#### stringify
+
+将各个部分组装成一个完成的 url 地址
 
 各个部分均可以缺省，然后使用默认值：
 
@@ -512,7 +602,9 @@ stringify({
 }); // "https://www.xiabingbao.com?from=utils&num=1&score=%7B%22math%22%3A80%2C%22eng%22%3A90%7D"
 ```
 
-### 页面可见性的检测
+### visibility
+
+页面可见性的检测
 
 #### 引入
 
