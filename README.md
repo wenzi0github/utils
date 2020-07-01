@@ -48,41 +48,39 @@ $ yarn add gh-qqnews-utils
 当前工具包中有如下的工具列表，各位开发者可以按需引入：
 
 -   cookie: 操作 cookie；
-    -   setCookie: 设置 cookie；
-    -   getCookie: 获取 cookie；
-    -   delCookie：删除 cookie；
+    -   [setCookie](#cookie): 设置 cookie；
+    -   [getCookie](#cookie): 获取 cookie；
+    -   [delCookie](#cookie)：删除 cookie；
 -   date: 日期和时间的操作；
-    -   isSameDay: 两个时间戳或格式化的字符串是否在同一天；
-    -   formatTime: 将时间戳转为格式化的字符串；
-    -   getWeekStartAndEnd: 获取当前星期的起始日期和结束日期
-    -   sleep: 延迟一段时间执行；
+    -   [isSameDay](#isSameDay): 两个时间戳或格式化的字符串是否在同一天；
+    -   [formatTime](#formatTime): 将时间戳转为格式化的字符串；
+    -   [getWeekStartAndEnd](#getWeekStartAndEnd): 获取当前星期的起始日期和结束日期
+    -   [sleep](#sleep): 延迟一段时间执行；
 -   debounceThrottle：防抖和节流；
-    -   debounce: 防抖；
-    -   throttle: 节流；
-    -   debounceThrottle： 防抖和节流函数的结合；
+    -   [debounce](#debounce): 防抖；
+    -   [throttle](#throttle): 节流；
+    -   [debounceThrottle](#debounceThrottle): 防抖和节流函数的结合；
 -   querystring： 链接中的参数；
-    -   parse: 解析 url 中所有的参数；
-    -   getQueryString: 获取 url 查询字符串中的参数；
-    -   stringify: 将 obj 类型的数据拼接为参数字符串('a=1&b=2')
+    -   [parse](#parse): 解析 url 中所有的参数；
+    -   [getQueryString](#getQueryString): 获取 url 查询字符串中的参数；
+    -   [stringify](#stringify): 将 obj 类型的数据拼接为参数字符串('a=1&b=2')
 -   regexp：常用的正则表达式；
-    -   isUrl: 是否正确的 url 地址；
-    -   isPhone: 是否正确的手机号码，11 位的数字；
-    -   isEmail: 是否正确的 email 邮箱地址
+    -   [isUrl](#isUrl): 是否正确的 url 地址；
+    -   [isPhone](#isPhone): 是否正确的手机号码，11 位的数字；
+    -   [isEmail](#isEmail): 是否正确的 email 邮箱地址
 -   string：字符串操作；
-    -   strReplace: 替换字符串中{key}为具体的数据；
-    -   truncate: 截取字符串；
-    -   loadScript: 加载 js 文件；
+    -   [strReplace](#strReplace): 替换字符串中{key}为具体的数据；
+    -   [truncate](#truncate): 截取字符串；
+    -   [loadScript](#loadScript): 加载 js 文件；
 -   ua：常用的 ua 判断
-    -   getSystemInfo: 获取当前系统和版本号；
-    -   getBrowserInfo: 获取当前 APP 和版本号；
+    -   [getSystemInfo](#getSystemInfo): 获取当前系统和版本号；
+    -   [getBrowserInfo](#getBrowserInfo): 获取当前 APP 和版本号；
 -   url：URL 操作；
-    -   parse: 把 url 类型的字符串解析出各个的字段；
-    -   stringify: 将几个部分拼接为一个完整的 url；
-    -   format: 将几个部分拼接为一个完整的 url；
-    -   isAbsolute: url 是否是绝对地址；
--   visibility： 页面的可见性；
-
-[TOC]
+    -   [parse](#parse): 把 url 类型的字符串解析出各个的字段；
+    -   [stringify](#stringify): 将几个部分拼接为一个完整的 url；
+    -   [format](#format): 将几个部分拼接为一个完整的 url；
+    -   [isAbsolute](#isAbsolute): url 是否是绝对地址；
+-   [visibility](#visibility)： 页面的可见性；
 
 ## 引入
 
