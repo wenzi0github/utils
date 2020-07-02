@@ -34,7 +34,7 @@ export const getSystemInfo = (uagt?: string): SystemInfo => {
     if (typeof window === "undefined") {
         return os;
     }
-    const userAgent = (uagt || window.navigator.userAgent).toLocaleLowerCase();
+    const userAgent = (uagt || window.navigator.userAgent).toLowerCase();
     const osTypes = {
         iphone: userAgent.match(/(iphone)\s(os\s)?([\d_]+)/i),
         ipad: userAgent.match(/(ipad).*\s([\d_]+)/i),
@@ -137,7 +137,7 @@ export const getBrowserInfo = (
     if (typeof window === "undefined") {
         return browser;
     }
-    const userAgent = (uagt || window.navigator.userAgent).toLocaleLowerCase();
+    const userAgent = (uagt || window.navigator.userAgent).toLowerCase();
 
     // 腾讯系的APP要先判断是否在广告webview中
     // 之前广平的webview只有他自己的标识，现在会加上其所在APP的标识
@@ -148,7 +148,7 @@ export const getBrowserInfo = (
         weibo: userAgent.match(/weibo/), // 新浪微博
         qqnewslite: /tadchid/.test(userAgent) ? null : userAgent.match(/qqnewslite\/(\d+\.\d+\.\d+)/), // 极速版新闻客户端
         qqnews: /tadchid/.test(userAgent) ? null : userAgent.match(/qqnews\/(\d+\.\d+\.\d+)/), // 新闻客户端
-        weixin: userAgent.match(/MicroMessenger\/((\d+)\.(\d+))\.(\d+)/) || userAgent.match(/MicroMessenger\/((\d+)\.(\d+))/), // 微信
+        weixin: userAgent.match(/MicroMessenger\/((\d+)\.(\d+)\.(\d+))/i) || userAgent.match(/MicroMessenger\/((\d+)\.(\d+))/i), // 微信
         mqqbrowser: userAgent.match(/mqqbrowser\/(\d+\.\d+)/), // QQ浏览器
         qq: userAgent.match(/qq\/(\d+\.\d+)/), // 手机QQ
         tenvideo: userAgent.match(/qqlivebrowser/), // 腾讯视频
