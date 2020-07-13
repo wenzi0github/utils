@@ -86,6 +86,7 @@ export const loadScript = (url: string): Promise<null> => {
         script.onload = () => {
             callbackFn();
         };
+        script.onerror = reject;
 
         if (timeout) {
             timer = setTimeout(() => {
@@ -95,3 +96,5 @@ export const loadScript = (url: string): Promise<null> => {
         }
     });
 };
+
+export const getScript = loadScript;

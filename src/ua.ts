@@ -174,3 +174,11 @@ export const getBrowserInfo = (
     }
     return browser;
 };
+
+export const isNewsApp = () => {
+    return getBrowserInfo().name === "qqnews";
+};
+
+export const isLiteNewsApp = () => {
+    return getBrowserInfo().name === "qqnewslite";
+};
