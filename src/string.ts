@@ -95,3 +95,10 @@ export const loadScript = (url: string): Promise<null> => {
         }
     });
 };
+
+/**
+ * 加载js文件
+ * @param {string} url 要加载的js文件链接
+ * @returns {Promise} 返回一个Promise对象，若加载失败或者超时，则reject
+ */
+export const getScript = loadScript;
