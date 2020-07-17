@@ -64,6 +64,10 @@ $ yarn add gh-qqnews-utils
     -   [parse](#parse): 解析 url 中所有的参数；
     -   [getQueryString](#getQueryString): 获取 url 查询字符串中的参数；
     -   [stringify](#stringify): 将 obj 类型的数据拼接为参数字符串('a=1&b=2')
+-   random: 随机数据
+    -   [randomNumber](#randomNumber): 产生随机数字（小数）；
+    -   [randomInt](#randomInt): 产生随机整数；
+    -   [randomStr](#randomStr): 产生随机字符串；
 -   regexp：常用的正则表达式；
     -   [isUrl](#isUrl): 是否正确的 url 地址；
     -   [isPhone](#isPhone): 是否正确的手机号码，11 位的数字；
@@ -345,6 +349,50 @@ querystring.stringify(
         }
     }
 ); // "a=20&b=40"
+```
+
+### random
+
+#### randomNumber
+
+产生随机的数字：大于等于 min，小于 max
+
+```javascript
+randomNumber(12, 20); // 17.244502548891298 随机
+```
+
+#### randomInt
+
+产生随机的整数：大于等于 min，小于 max
+
+```javascript
+randomInt(12, 20); // 16 随机
+randomInt(12, 13); // 12 固定
+```
+
+#### randomStr
+
+产生随机的字符串，默认使用大写字母，小写字母和数字组成，可以通过第 2 个参数进行相关的配置：
+
+```javascript
+randomStr(len, {
+    number?: boolean; // 是否有数字，默认为true
+    lowercase?: boolean; // 是否有小写字母，默认为true
+    uppercase?: boolean; // 是否有大写字母，默认为true
+    throughline?: boolean; // 是否有中划线，默认为false
+    underline?: boolean; // 是否有下划线，默认为false
+})
+```
+
+使用：
+
+```javascript
+randomStr(15); // e4cMHFrp816pNEZ
+randomStr(15, { uppercase: false }); // 7kj175n7ezda4cb 无大写字母
+randomStr(15, { lowercase: false }); // 072WF4N34W2CPNA 无小写字母
+randomStr(15, { number: false }); // tAPSiQrkNzZzTDY 无数字
+randomStr(15, { throughline: true }); // dM6a-s-fpztGZNT 中划线加入到随机字符集中
+randomStr(15, { underline: true }); // 0m5mYHtPep_H4ce 下划线加入到随机字符集中
 ```
 
 ### regexp
