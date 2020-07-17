@@ -1,6 +1,6 @@
 {
     "name": "gh-qqnews-utils",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "description": "前端中常用的工具方法",
     "keywords": [
         "utils",
@@ -9,6 +9,7 @@
         "date",
         "debounce",
         "querystring",
+        "random",
         "regexp",
         "string",
         "ua",
@@ -27,6 +28,8 @@
         "utils.js",
         "querystring.d.ts",
         "querystring.js",
+        "random.d.ts",
+        "random.js",
         "regexp.d.ts",
         "regexp.js",
         "string.d.ts",
