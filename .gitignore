@@ -12,6 +12,8 @@ utils.d.ts
 utils.js
 querystring.d.ts
 querystring.js
+random.d.ts
+random.js
 regexp.d.ts
 regexp.js
 string.d.ts
