@@ -116,12 +116,17 @@ type BrowserInfoKeys =
     | "weishi"
     | "miuibrowser";
 
-interface BrowserInfoType {
+type BrowserAppType = {
+    [key in BrowserInfoKeys]: {
+        name: BrowserInfoKeys | "";
+        version: string;
+        is: boolean;
+    };
+};
+
+interface BrowserInfoType extends BrowserAppType {
     name: BrowserInfoKeys | "";
     version: string;
-    app: {
-        [key in BrowserInfoKeys]: boolean;
-    };
 }
 
 /**
@@ -133,25 +138,23 @@ export const getBrowserInfo = (uagt?: string): BrowserInfoType => {
     const browser: BrowserInfoType = {
         name: "",
         version: "",
-        app: {
-            weibo: false, // 新浪微博
-            qqnewslite: false, // 极速版新闻客户端
-            qqnews: false, // 新闻客户端
-            weixin: false, // 微信
-            mqqbrowser: false, // QQ浏览器
-            qq: false, // 手机QQ
-            tenvideo: false, // 腾讯视频
-            qqmusic: false, // QQMUSIC
-            qqac: false, // 腾讯动漫
-            tadchid: false, // 广告webview
-            ucbrowser: false, // UC浏览器
-            chrome: false,
-            safari: false,
-            hwbrowser: false, // 华为手机
-            qzone: false, // 手机QQ空间
-            weishi: false, // 微视
-            miuibrowser: false
-        }
+        weibo: { name: "", version: "", is: false }, // 新浪微博
+        qqnewslite: { name: "", version: "", is: false }, // 极速版新闻客户端
+        qqnews: { name: "", version: "", is: false }, // 新闻客户端
+        weixin: { name: "", version: "", is: false }, // 微信
+        mqqbrowser: { name: "", version: "", is: false }, // QQ浏览器
+        qq: { name: "", version: "", is: false }, // 手机QQ
+        tenvideo: { name: "", version: "", is: false }, // 腾讯视频
+        qqmusic: { name: "", version: "", is: false }, // QQMUSIC
+        qqac: { name: "", version: "", is: false }, // 腾讯动漫
+        tadchid: { name: "", version: "", is: false }, // 广告webview
+        ucbrowser: { name: "", version: "", is: false }, // UC浏览器
+        chrome: { name: "", version: "", is: false },
+        safari: { name: "", version: "", is: false },
+        hwbrowser: { name: "", version: "", is: false }, // 华为手机
+        qzone: { name: "", version: "", is: false }, // 手机QQ空间
+        weishi: { name: "", version: "", is: false }, // 微视
+        miuibrowser: { name: "", version: "", is: false }
     };
     if (typeof window === "undefined") {
         return browser;
@@ -183,19 +186,19 @@ export const getBrowserInfo = (uagt?: string): BrowserInfoType => {
         miuibrowser: userAgent.match(/miuibrowser\/(\d+?\.\d+?\.\d+?)/i) // 小米自带的浏览器
     };
     let key: BrowserInfoKeys = "mqqbrowser";
-    let app: {
-        [key: string]: boolean;
-    } = {};
     for (key in browserTypes) {
         const type: RegExpMatchArray | null = (browserTypes as any)[key];
 
         if (type) {
             browser.version = type[1] || "0";
             browser.name = key;
-            app[key] = true;
+            browser[key] = {
+                name: key,
+                version: type[1] || "0",
+                is: true
+            };
         }
     }
-    (browser.app as any) = app;
     return browser;
 };
 
