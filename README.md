@@ -558,13 +558,21 @@ getBrowserInfo();
 // iOS系统
 {
     name: "safari",
-    version: "604.1"
+    version: "604.1",
+    app: {
+        weixin: true,
+        qq: false
+    }
 }
 
 // android
 {
     name: "chrome",
-    version: "81.0"
+    version: "81.0",
+    app: {
+        weixin: true,
+        qq: false
+    }
 }
 */
 ```

@@ -116,23 +116,42 @@ type BrowserInfoKeys =
     | "weishi"
     | "miuibrowser";
 
+interface BrowserInfoType {
+    name: BrowserInfoKeys | "";
+    version: string;
+    app: {
+        [key in BrowserInfoKeys]: boolean;
+    };
+}
+
 /**
  * 获取当前APP和版本号
  * @param {string} uagt 要传入的ua，若不传入，则使用当前页面的ua
  * @returns {{name: BrowserInfoKeys | '', version: string}} 所在app的名称和版本号
  */
-export const getBrowserInfo = (
-    uagt?: string
-): {
-    name: BrowserInfoKeys | "";
-    version: string;
-} => {
-    const browser: {
-        name: BrowserInfoKeys | "";
-        version: string;
-    } = {
+export const getBrowserInfo = (uagt?: string): BrowserInfoType => {
+    const browser: BrowserInfoType = {
         name: "",
-        version: ""
+        version: "",
+        app: {
+            weibo: false, // 新浪微博
+            qqnewslite: false, // 极速版新闻客户端
+            qqnews: false, // 新闻客户端
+            weixin: false, // 微信
+            mqqbrowser: false, // QQ浏览器
+            qq: false, // 手机QQ
+            tenvideo: false, // 腾讯视频
+            qqmusic: false, // QQMUSIC
+            qqac: false, // 腾讯动漫
+            tadchid: false, // 广告webview
+            ucbrowser: false, // UC浏览器
+            chrome: false,
+            safari: false,
+            hwbrowser: false, // 华为手机
+            qzone: false, // 手机QQ空间
+            weishi: false, // 微视
+            miuibrowser: false
+        }
     };
     if (typeof window === "undefined") {
         return browser;
@@ -164,14 +183,19 @@ export const getBrowserInfo = (
         miuibrowser: userAgent.match(/miuibrowser\/(\d+?\.\d+?\.\d+?)/i) // 小米自带的浏览器
     };
     let key: BrowserInfoKeys = "mqqbrowser";
+    let app: {
+        [key: string]: boolean;
+    } = {};
     for (key in browserTypes) {
         const type: RegExpMatchArray | null = (browserTypes as any)[key];
+
         if (type) {
             browser.version = type[1] || "0";
             browser.name = key;
-            break;
+            app[key] = true;
         }
     }
+    (browser.app as any) = app;
     return browser;
 };
 
