@@ -167,17 +167,17 @@ export const getBrowserInfo = (uagt?: string): BrowserInfoType => {
     const browserTypes: {
         [key in BrowserInfoKeys]: RegExpMatchArray | null;
     } = {
-        weibo: userAgent.match(/weibo/), // 新浪微博
         qqnewslite: /tadchid/.test(userAgent) ? null : userAgent.match(/qqnewslite\/(\d+\.\d+\.\d+)/), // 极速版新闻客户端
         qqnews: /tadchid/.test(userAgent) ? null : userAgent.match(/qqnews\/(\d+\.\d+\.\d+)/), // 新闻客户端
         weixin: userAgent.match(/MicroMessenger\/((\d+)\.(\d+)\.(\d+))/i) || userAgent.match(/MicroMessenger\/((\d+)\.(\d+))/i), // 微信
-        mqqbrowser: userAgent.match(/mqqbrowser\/(\d+\.\d+)/), // QQ浏览器
         qq: userAgent.match(/qq\/(\d+\.\d+)/), // 手机QQ
         tenvideo: userAgent.match(/qqlivebrowser/), // 腾讯视频
         qqmusic: userAgent.match(/qqmusic/), // QQMUSIC
         qqac: userAgent.match(/qqac_client/), // 腾讯动漫
+        weibo: userAgent.match(/weibo/), // 新浪微博
         tadchid: userAgent.match(/tadchid\/(\d+)/), // 广告webview
         ucbrowser: userAgent.match(/ucbrowser\/(\d+\.\d+)/i), // UC浏览器
+        mqqbrowser: userAgent.match(/mqqbrowser\/(\d+\.\d+)/), // QQ浏览器
         chrome: /android/.test(userAgent) ? userAgent.match(/chrome\/(\d+\.\d+)/) : userAgent.match(/crios\/(\d+\.\d+)/),
         safari: userAgent.match(/safari\/(\d+\.\d+)/),
         hwbrowser: userAgent.match(/huawei|honor/), // 华为手机
@@ -185,13 +185,21 @@ export const getBrowserInfo = (uagt?: string): BrowserInfoType => {
         weishi: userAgent.match(/weishi_(\d+?\.\d+?\.\d+?)/i), // 微视
         miuibrowser: userAgent.match(/miuibrowser\/(\d+?\.\d+?\.\d+?)/i) // 小米自带的浏览器
     };
+    const names = Object.keys(browserTypes);
+    for (let i = 0, len = names.length; i < len; i++) {
+        const name = names[i];
+        const app = (browserTypes as any)[name];
+        if (app) {
+            browser.version = app[1] || "0";
+            (browser.name as any) = name;
+            break;
+        }
+    }
     let key: BrowserInfoKeys = "mqqbrowser";
     for (key in browserTypes) {
         const type: RegExpMatchArray | null = (browserTypes as any)[key];
 
         if (type) {
-            browser.version = type[1] || "0";
-            browser.name = key;
             browser[key] = {
                 name: key,
                 version: type[1] || "0",
@@ -202,10 +210,10 @@ export const getBrowserInfo = (uagt?: string): BrowserInfoType => {
     return browser;
 };
 
-export const isNewsApp = () => {
-    return getBrowserInfo().name === "qqnews";
+export const isNewsApp = (ua?: string) => {
+    return getBrowserInfo(ua).name === "qqnews";
 };
 
-export const isLiteNewsApp = () => {
-    return getBrowserInfo().name === "qqnewslite";
+export const isLiteNewsApp = (ua?: string) => {
+    return getBrowserInfo(ua).name === "qqnewslite";
 };
