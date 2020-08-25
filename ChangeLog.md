@@ -1,0 +1,1 @@
+-   0.0.11: PageVisibility 中添加 desoty，用于销毁已添加的 change 事件；

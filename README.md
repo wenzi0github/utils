@@ -684,3 +684,7 @@ visibility.isShow(); // 当前页面的可见性
 ## 协议
 
 [MIT](./LICENSE)
+
+## ChangeLog
+
+[ChangeLog](./ChangeLog.md)

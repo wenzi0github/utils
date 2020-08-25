@@ -19,6 +19,7 @@ class PageVisibility {
     private __hidden = "";
     private __state = "";
     private __prefixSupport = "";
+    __bindFn = () => {};
     support = false;
 
     constructor() {
@@ -51,19 +52,22 @@ class PageVisibility {
     visibilityChange(fn: (visibility: boolean) => void, usecapture: boolean = false) {
         if (this.support && typeof fn === "function") {
             const self = this;
-            return document.addEventListener(
-                this.__prefixSupport + "visibilitychange",
-                function () {
-                    fn.call(null, self.isShow());
-                }.bind(this),
-                usecapture
-            );
+
+            this.__bindFn = function () {
+                fn.call(null, self.isShow());
+            }.bind(this);
+            return document.addEventListener(this.__prefixSupport + "visibilitychange", this.__bindFn, usecapture);
         }
+    }
+
+    // 多次执行时，先去掉之前的事件，防止附加多个change事件
+    destory() {
+        document.removeEventListener(this.__prefixSupport + "visibilitychange", this.__bindFn);
     }
 
     /**
      * 获取当前页面的可见性
-     * 
+     *
      * @returns {boolean} 是否可见
      */
     isShow(): boolean {
