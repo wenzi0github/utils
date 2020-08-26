@@ -30,18 +30,19 @@ export const truncate = (str: string, size: number, tail?: string): string => {
     }
 
     function isEmpty(str: any) {
-        if (str === undefined || str === "" || str === null) {
-            return true;
-        }
-        return false;
+        return typeof str !== "string" || str === "";
+    }
+
+    if (isEmpty(str)) {
+        return str;
     }
 
     let nstr = trim(str);
 
     const arr = Array.from(nstr);
 
-    let cLen = arr.length;
-    let length = size <= 0 ? cLen : size;
+    const cLen = arr.length;
+    const length = size <= 0 ? cLen : size;
     if (length >= cLen) return nstr;
     nstr = arr.slice(0, length).join("");
     nstr += tail || "...";
