@@ -1,4 +1,4 @@
-import { parse, stringify, format, isAbsolute } from "../src/url";
+import { parse, stringify, format, isAbsolute, http2https } from "../src/url";
 
 // https://example.org/?name=wenzi&age=24#card?articleId=11
 
@@ -101,7 +101,7 @@ describe("isAbsolute", () => {
         expect(isAbsolute("https://")).toBeTruthy();
         expect(isAbsolute("https://xiabingbao.com")).toBeTruthy();
     });
-    test('isabolsute //', () => {
+    test("isabolsute //", () => {
         expect(isAbsolute("//xiabingbao.com")).toBeTruthy();
         expect(isAbsolute("//")).toBeTruthy();
     });
@@ -116,5 +116,26 @@ describe("isAbsolute", () => {
     test("isAbsolute other", () => {
         expect(isAbsolute("xiabingbao.com")).toBeFalsy();
         expect(isAbsolute("/post/fe/hash-history-router.html")).toBeFalsy();
+    });
+});
+
+describe("http2https", () => {
+    test("http2https http", () => {
+        expect(http2https("http://www.xiabingbao.com")).toBe("https://www.xiabingbao.com");
+        expect(http2https("http://www.xiabingbao.com/http://")).toBe("https://www.xiabingbao.com/http://");
+    });
+    test("http2https https", () => {
+        expect(http2https("https://www.xiabingbao.com")).toBe("https://www.xiabingbao.com");
+        expect(http2https("https://www.xiabingbao.com/http://")).toBe("https://www.xiabingbao.com/http://");
+    });
+    test("http2https //", () => {
+        expect(http2https("//www.xiabingbao.com")).toBe("//www.xiabingbao.com");
+        expect(http2https("//www.xiabingbao.com/http://")).toBe("//www.xiabingbao.com/http://");
+    });
+    test("http2https other scheme", () => {
+        expect(http2https("qqnews://article_9500")).toBe("qqnews://article_9500");
+    });
+    test("http2https null", () => {
+        expect(http2https('')).toBe('');
     });
 });

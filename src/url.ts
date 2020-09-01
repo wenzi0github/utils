@@ -79,3 +79,10 @@ export const isAbsolute = (url: string): boolean => {
     // by any combination of letters, digits, plus, period, or hyphen.
     return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
 };
+
+export const http2https = (url: string): string => {
+    if (/^http:\/\//.test(url)) {
+        return url.replace("http://", "https://");
+    }
+    return url;
+};
