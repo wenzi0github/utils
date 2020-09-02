@@ -584,7 +584,7 @@ getBrowserInfo();
 #### 引入
 
 ```javascript
-import { parse, stringify, format } from "gh-qqnews-utils/url";
+import { parse, stringify, format, http2https } from "gh-qqnews-utils/url";
 // format与stringify的操作一样
 ```
 
@@ -656,6 +656,16 @@ stringify({
 }); // "https://www.xiabingbao.com?from=utils&num=1&score=%7B%22math%22%3A80%2C%22eng%22%3A90%7D"
 ```
 
+#### http2https
+
+将`http://`开头的链接改为`https://`的，其他格式的保持不变，原样返回。
+
+```javascript
+http2https("http://www.xiabingbao.com"); // https://www.xiabingbao.com
+http2https("https://www.xiabingbao.com"); // https://www.xiabingbao.com
+http2https("//www.xiabingbao.com"); // //www.xiabingbao.com
+```
+
 ### visibility
 
 页面可见性的检测
@@ -670,10 +680,16 @@ import PageVisibility from "gh-qqnews-utils/visibility";
 
 ```javascript
 const visibility = new PageVisibility();
+
+// 监听当前页面的变化
 visibility.visibilityChange((isShow) => {
     console.log(isShow); // 可见性切换时触发
 });
+
+// 直接获取当前页面的可见性
 visibility.isShow(); // 当前页面的可见性
+
+visibility.destory(); // 销毁 visibilityChange 监听事件
 ```
 
 ## 维护者
