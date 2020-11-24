@@ -60,7 +60,7 @@
         "eslint": "^7.1.0",
         "husky": "^4.2.5",
         "jest": "^26.0.1",
-        "lint-staged": "^10.2.11",
+        "lint-staged": "^10.5.2",
         "prettier": "^2.0.5",
         "ts-jest": "^26.0.0",
         "ts-loader": "^7.0.5",
