@@ -68,6 +68,9 @@ $ yarn add gh-qqnews-utils
     -   [randomNumber](#randomNumber): 产生随机数字（小数）；
     -   [randomInt](#randomInt): 产生随机整数；
     -   [randomStr](#randomStr): 产生随机字符串；
+-   number: 数字操作
+    -   [toThousands](#toThousands): 添加千分位号；
+    -   [getClampNumber](#getClampNumber): 获取合理范围内的数字；
 -   regexp：常用的正则表达式；
     -   [isUrl](#isUrl): 是否正确的 url 地址；
     -   [isPhone](#isPhone): 是否正确的手机号码，11 位的数字；
@@ -393,6 +396,32 @@ randomStr(15, { lowercase: false }); // 072WF4N34W2CPNA 无小写字母
 randomStr(15, { number: false }); // tAPSiQrkNzZzTDY 无数字
 randomStr(15, { throughline: true }); // dM6a-s-fpztGZNT 中划线加入到随机字符集中
 randomStr(15, { underline: true }); // 0m5mYHtPep_H4ce 下划线加入到随机字符集中
+```
+
+### number
+
+#### 引入
+
+```javascript
+import { toThousands, getClampNumber } from "gh-qqnews-utils/regexp";
+```
+
+#### toThousands
+
+设置千分位
+
+```javascript
+toThousands(123456); // '123,456'
+```
+
+#### getClampNumber
+
+获取合理范围内的数字，当在设定的范围内，则返回原值；当超出设定的最大或者最小阈值时，则使用边界值。
+
+```javascript
+getClampNumber(50, 0, 100); // 50
+getClampNumber(-1, 0, 100); // 0
+getClampNumber(110, 0, 100); // 100
 ```
 
 ### regexp
