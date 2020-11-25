@@ -1,4 +1,20 @@
 /**
+ * 获取合理范围内的数字，若超过边界，则使用边界的数字
+ * @param {number} num 当前要判断的数字
+ * @param {number} min 范围的下限
+ * @param {number} max 范围的上限
+ */
+export const getClampNumber = (num: number, min: number, max: number): number => {
+    if (num <= min) {
+        return min;
+    }
+    if (num >= max) {
+        return max;
+    }
+    return num;
+};
+
+/**
  * get random number
  * @param {number} min min number
  * @param {number} max max number
