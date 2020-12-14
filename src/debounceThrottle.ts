@@ -11,7 +11,7 @@
  * @param {Function} fn
  * @param {number} delay 延迟的时间
  */
-export const debounce = function (fn: () => void, delay: number) {
+export const debounce = function (fn: Function, delay: number) {
     // 维护一个 timer
     let timer: any = null;
 
@@ -35,16 +35,33 @@ export const debounce = function (fn: () => void, delay: number) {
  * @param {Function} fn 回调函数
  * @param {number} timeout 时间间隔
  */
-export const throttle = function (fn: () => void, timeout: number) {
+export const throttle = function (
+    fn: Function,
+    timeout: number,
+    options?: {
+        immediate: boolean;
+    }
+) {
     let timer: any = null;
+    const immediate = options && options.immediate;
 
     return function () {
         // @ts-ignore
         const context = this;
         const args: any = arguments;
         if (!timer) {
+            // 是否立即执行
+            if (immediate) {
+                // @ts-ignore
+                fn.apply(this, arguments);
+            }
+
+            // 第一次时产生timer，然后过滤掉之后所有的回调
+            // 一定时间后才执行一次的回调
             timer = setTimeout(function () {
-                fn.apply(context, args);
+                if (!immediate) {
+                    fn.apply(context, args);
+                }
                 timer = null;
             }, timeout);
         }
@@ -62,7 +79,7 @@ export const throttle = function (fn: () => void, timeout: number) {
  * @param {number} delay 取消执行事件的时间
  * @param {number} timeout 一定时间内肯定会执行一次，timeout > delay
  */
-export const debounceThrottle = (fn: () => void, delay: number, timeout: number) => {
+export const debounceThrottle = (fn: Function, delay: number, timeout: number) => {
     let timer: any = null;
     let previous = 0;
 
