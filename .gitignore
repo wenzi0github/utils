@@ -10,6 +10,8 @@ debounceThrottle.d.ts
 debounceThrottle.js
 utils.d.ts
 utils.js
+number.d.ts
+number.js
 querystring.d.ts
 querystring.js
 random.d.ts

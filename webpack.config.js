@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const fs = require("fs");
+const TerserPlugin = require("terser-webpack-plugin");
 
 const packageConfig = require("./package");
 
@@ -40,6 +41,10 @@ module.exports = {
                 }
             }
         ]
+    },
+    optimization: {
+        minimize: true,
+        minimizer: [new TerserPlugin({ extractComments: false })],
     },
     plugins: [new webpack.BannerPlugin(`gh-qqnews-utils/[name] v${packageConfig.version} @: ${new Date().toLocaleString()}`)]
 };
