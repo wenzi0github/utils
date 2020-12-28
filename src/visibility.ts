@@ -1,7 +1,7 @@
 /**
  * 由于历史原因，这个 API 还定义了document.hidden属性。该属性只读，返回一个布尔值，表示当前页面是否可见。
  * 当document.visibilityState属性返回visible时，document.hidden属性返回false；其他情况下，都返回true。
- * 该属性只是出于历史原因而保留的，只要有可能，都应该使用document.visibilityState属性，而不是使用这个属性。
+ * document.hidden该属性只是出于历史原因而保留的，只要有可能，都应该使用document.visibilityState属性，而不是使用这个属性。
  */
 /**
  * 获取当前页面的可见性
@@ -20,16 +20,18 @@ class PageVisibility {
     private __state = "";
     private __prefixSupport = "";
     __bindFn = () => {};
-    support = false;
+    supportHidden = false; // 是否支持document.hidden
+    supportState = false; // 是否支持document.visibilityState
 
     constructor() {
-        this.support = this.__isPageVisibilitySupport();
+        this.supportHidden = this.__isPageHiddenSupport();
+        this.supportState = this.__isPageVisibilitySupport();
     }
 
     // 当前浏览器是否支持hidden
-    private __isPageVisibilitySupport() {
+    private __isPageHiddenSupport() {
         let support = false;
-        if (typeof window === "undefined") {
+        if (typeof window?.screenX !== "number") {
             return support;
         }
         ["", "webkit", "moz", "ms", "o"].forEach((item) => {
@@ -37,6 +39,21 @@ class PageVisibility {
             if (!support && s in document) {
                 this.__hidden = s;
                 this.__prefixSupport = item;
+                support = true;
+            }
+        });
+        return support;
+    }
+
+    // 当前浏览器是否支持hidden
+    private __isPageVisibilitySupport() {
+        let support = false;
+        if (typeof window?.screenX !== "number") {
+            return support;
+        }
+        ["", "webkit", "moz", "ms", "o"].forEach((item) => {
+            let s = keyWithPrefix(item, "visibilityState");
+            if (!support && s in document) {
                 this.__state = keyWithPrefix(item, "visibilityState");
                 support = true;
             }
@@ -50,12 +67,15 @@ class PageVisibility {
      * @param {boolean} usecapture 是否冒泡
      */
     visibilityChange(fn: (visibility: boolean) => void, usecapture: boolean = false) {
-        if (this.support && typeof fn === "function") {
+        if ((this.supportHidden || this.supportState) && typeof fn === "function") {
             const self = this;
 
             this.__bindFn = function () {
                 fn.call(null, self.isShow());
             }.bind(this);
+
+            // 先注销上一个事件，然后再注册下一个事件
+            this.destory();
             return document.addEventListener(this.__prefixSupport + "visibilitychange", this.__bindFn, usecapture);
         }
     }
@@ -71,15 +91,13 @@ class PageVisibility {
      * @returns {boolean} 是否可见
      */
     isShow(): boolean {
-        // 若不支持，则默认页面一直可见
-        if (!this.support) {
-            return true;
-        }
-        if (this.__state in document) {
+        if (this.supportState) {
             return (document as any)[this.__state] === "visible";
-        } else if (this.__hidden in document) {
+        }
+        if (this.supportHidden) {
             return !(document as any)[this.__hidden];
         }
+        // 若不支持，则默认页面一直可见
         return true;
     }
 }
